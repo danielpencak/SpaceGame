@@ -8,7 +8,7 @@ const app = express();
 
 app.disable('x-powered-by');
 
-app.use(express.static('hellophaser'));
+app.use(express.static('public'));
 
 app.use((_req, res, _next) => {
   return res.sendStatus(404);
