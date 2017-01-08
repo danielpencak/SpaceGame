@@ -2,7 +2,7 @@
 // 'use strict';
 
 var gameProperties = {
-   screenWidth: 640,
+   screenWidth: 800,
    screenHeight: 480,
 };
 
