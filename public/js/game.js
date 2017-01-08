@@ -8,6 +8,7 @@ var gameProperties = {
 
 var shipProperties = {
    // start coordinates
+   // testing testing
    startX: gameProperties.screenWidth * 0.5,
    startY: gameProperties.screenHeight * 0.5,
 };
