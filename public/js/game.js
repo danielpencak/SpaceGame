@@ -8,7 +8,6 @@ var gameProperties = {
 
 var shipProperties = {
    // start coordinates
-   // testing testing
    startX: gameProperties.screenWidth * 0.5,
    startY: gameProperties.screenHeight * 0.5,
 };
@@ -16,7 +15,7 @@ var shipProperties = {
 const graphicAssets = {
  background: { URL:'/assets/deep-space.jpg', name: 'deepSpace' },
  ship: { URL: '/assets/xenon2_ship.png', name: 'ship'}
-}
+};
 
 window.onload = (() => {
   const preload = (() => {
@@ -30,5 +29,6 @@ window.onload = (() => {
     // deepSpace.anchor.setTo(.5, .5);
     const ship = game.add.sprite(shipProperties.startX, shipProperties.startY, 'ship');
   });
+  
   const game = new Phaser.Game(gameProperties.screenWidth, gameProperties.screenHeight, Phaser.AUTO, '', { preload: preload, create: create });
 });
