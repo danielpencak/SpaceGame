@@ -1,18 +1,16 @@
 /* eslint-disable*/
-// 'use strict';
+'use strict';
 let cursors = {};
 let ship = {};
 let asteroid = {};
-
-var gameProperties = {
-   screenWidth: 800,
-   screenHeight: 480,
-};
+let veggie = {};
 
 var shipProperties = {
    // start coordinates
-   startX: gameProperties.screenWidth * 0.5,
-   startY: gameProperties.screenHeight * 0.5,
+  //  startX: gameProperties.screenWidth * 0.5,
+  //  startY: gameProperties.screenHeight * 0.5,
+  startX: 250,
+  startY: 250
 };
 
 const graphicAssets = {
@@ -21,7 +19,6 @@ const graphicAssets = {
  asteroid: { URL:'/assets/1.png', name: 'asteroid'}
 };
 
-
 const preload = (() => {
   game.load.image(graphicAssets.background.name, graphicAssets.background.URL);
   game.load.image(graphicAssets.ship.name, graphicAssets.ship.URL);
@@ -29,33 +26,45 @@ const preload = (() => {
 });
 
 const create = (() => {
-  game.physics.startSystem(Phaser.Physics.ARCADE);
-  // game.renderer.clearBeforeRender = false;
-  // game.renderer.roundPixels = true;
+  game.add.tileSprite(0, 0, 1920, 1920, 'deepSpace');
 
-  game.add.tileSprite(0, 0, game.width, game.height, 'deepSpace');
+      game.world.setBounds(0, 0, 1920, 1920);
 
-  // deepSpace.anchor.setTo(.5, .5);
-  ship = game.add.sprite(shipProperties.startX, shipProperties.startY, 'ship');
-  ship.anchor.set(0.5);
+      game.physics.startSystem(Phaser.Physics.arcade);
 
-  game.add.sprite(100, 100, 'asteroid');
+      // create ship sprite, enable physics
+      ship = game.add.sprite(game.world.centerX, game.world.centerY, 'ship');
+      ship.anchor.set(0.5, 0.5);
+      game.physics.arcade.enable(ship);
 
-  game.physics.enable([ship, asteroid], Phaser.Physics.ARCADE);
+      // create asteroid sprite, enable physics
+      // game.add.sprite(100, 100, 'asteroid');
+      // game.physics.arcade.enable(asteroid);
 
-  ship.body.maxVelocity.set(200);
+      // ship.body.onCollide = new Phaser.Signal();
+      // ship.body.onCollide.add(hitSprite, this);
+      asteroid = game.add.physicsGroup();
+      veggie = asteroid.create(100, 100, 'asteroid')
+      veggie.body.immovable = true;
+      ship.body.collideWorldBounds = true;
 
-  // Game input
-  cursors = game.input.keyboard.createCursorKeys();
+      cursors = game.input.keyboard.createCursorKeys();
 
-  ship.body.onCollide = new Phaser.Signal();
-  // ship.body.onCollide.add(hitSprite, this);
-  ship.body.collideWorldBounds = true;
+      game.camera.follow(ship);
 });
 
 const update = (() => {
+if (game.physics.arcade.collide(ship, asteroid))
+{
+    console.log('boom');
+}
+  // game.physics.arcade.collide(ship, asteroid, collisionHandler, null, this);
+  if (game.physics.arcade.collide(ship, asteroid, collisionHandler, null, this))
+    {
+        console.log('boom');
+    }
 
-  game.physics.arcade.collide(ship, asteroid, collisionHandler, null, this);
+    // game.physics.arcade.overlap(sprite, group, collisionHandler, null, this);
 
   if (cursors.up.isDown)
   {
@@ -78,15 +87,80 @@ const update = (() => {
   {
     ship.body.angularVelocity = 0;
   }
-
-
 });
 
 function collisionHandler (ship, asteroid) {
-    console.log('collide!!!!!');
+
+    // if (veg.frame == 17)
+    // {
+    //     veg.kill();
+    // }
+    console.log('collide');
 }
 
 function render() {
+  // game.debug.cameraInfo(game.camera);
+  // game.debug.spriteCoords(ship, 32, 500);
 }
 
-const game = new Phaser.Game(gameProperties.screenWidth, gameProperties.screenHeight, Phaser.AUTO, '', { preload: preload, create: create, update: update, render: render});
+const game = new Phaser.Game(1000, 700, Phaser.CANVAS, 'gamecontainer', { preload: preload, create: create, update: update, render: render});
+
+// var game = new Phaser.Game(800, 600, Phaser.AUTO, 'phaser-example', { preload: preload, create: create, update: update });
+
+// function preload() {
+//
+//     game.load.image('phaser', 'assets/xenon2_ship.png');
+//     game.load.image('veggies', 'assets/1.png');
+//
+// }
+
+// var ship;
+// var group;
+// var cursors;
+//
+// function create() {
+//
+//     game.physics.startSystem(Phaser.Physics.ARCADE);
+//
+//     ship = game.add.sprite(32, 200, 'phaser');
+//     ship = game.add.sprite(game.world.centerX, game.world.centerY, 'ship');
+//     ship.anchor.set(0.5, 0.5);
+//     game.physics.arcade.enable(ship);
+//
+//     group = game.add.physicsGroup();
+//     veggie = group.create(100, 100, 'asteroid')
+//     veggie.body.immovable = true;
+//
+//     cursors = game.input.keyboard.createCursorKeys();
+//
+// }
+//
+// function update() {
+//
+//     if (game.physics.arcade.collide(ship, group))
+//     {
+//         console.log('boom');
+//     }
+//     if (cursors.up.isDown)
+//     {
+//       game.physics.arcade.accelerationFromRotation(ship.rotation- 1.5708, 200, ship.body.acceleration);
+//       // console.log(ship);
+//     }
+//     else
+//     {
+//       ship.body.acceleration.set(0);
+//     }
+//     if (cursors.left.isDown)
+//     {
+//       ship.body.angularVelocity = -300;
+//     }
+//     else if (cursors.right.isDown)
+//     {
+//       ship.body.angularVelocity = 300;
+//     }
+//     else
+//     {
+//       ship.body.angularVelocity = 0;
+//     }
+//   };
+//     // game.physics.arcade.overlap(ship, group, collisionHandler, null, this);
