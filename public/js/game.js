@@ -16,7 +16,7 @@ var shipProperties = {
 const graphicAssets = {
  background: { URL:'/assets/deep-space.jpg', name: 'deepSpace' },
  ship: { URL: '/assets/xenon2_ship.png', name: 'ship'},
- asteroid: { URL:'/assets/asteroid.png', name: 'asteroid'}
+ asteroid: { URL:'/assets/factory.png', name: 'asteroid'}
 };
 
 const preload = (() => {
