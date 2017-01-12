@@ -4,6 +4,8 @@ let cursors = {};
 let ship = {};
 let asteroid = {};
 let veggie = {};
+let spaceman = {};
+let spacemanAcquired = false;
 
 var shipProperties = {
    // start coordinates
@@ -17,14 +19,14 @@ const graphicAssets = {
  background: { URL:'/assets/deep-space.jpg', name: 'deepSpace' },
  ship: { URL: '/assets/xenon2_ship.png', name: 'ship'},
  asteroid: { URL:'/assets/factory.png', name: 'asteroid'},
- // spaceman: { URL:'/assets/phaser-dude.png', name: 'spaceman' }
+ spaceman: { URL:'/assets/phaser-dude.png', name: 'spaceman' }
 };
 
 const preload = (() => {
   game.load.image(graphicAssets.background.name, graphicAssets.background.URL);
   game.load.image(graphicAssets.ship.name, graphicAssets.ship.URL);
   game.load.image(graphicAssets.asteroid.name, graphicAssets.asteroid.URL);
-  // game.load.image(graphicAssets.spaceman.name, graphicAssets.spaceman.URL);
+  game.load.image(graphicAssets.spaceman.name, graphicAssets.spaceman.URL);
 });
 
 const create = (() => {
@@ -50,7 +52,8 @@ const create = (() => {
       veggie.body.immovable = true;
       ship.body.collideWorldBounds = true;
 
-      // spaceman = game.add.sprite(100, 50, 'spaceman');
+      spaceman = game.add.sprite(100, 50, 'spaceman');
+      game.physics.arcade.enable(spaceman);
 
       cursors = game.input.keyboard.createCursorKeys();
 
@@ -61,6 +64,14 @@ const update = (() => {
 if (game.physics.arcade.collide(ship, asteroid))
 {
     console.log('boom');
+}
+
+if (game.physics.arcade.overlap(ship, spaceman))
+{
+    spaceman.kill();
+    console.log('ouch');
+    spacemanAcquired = true;
+    console.log(spacemanAcquired);
 }
   // game.physics.arcade.collide(ship, asteroid, collisionHandler, null, this);
   if (game.physics.arcade.collide(ship, asteroid, collisionHandler, null, this))
