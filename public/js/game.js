@@ -16,13 +16,15 @@ var shipProperties = {
 const graphicAssets = {
  background: { URL:'/assets/deep-space.jpg', name: 'deepSpace' },
  ship: { URL: '/assets/xenon2_ship.png', name: 'ship'},
- asteroid: { URL:'/assets/factory.png', name: 'asteroid'}
+ asteroid: { URL:'/assets/factory.png', name: 'asteroid'},
+ // spaceman: { URL:'/assets/phaser-dude.png', name: 'spaceman' }
 };
 
 const preload = (() => {
   game.load.image(graphicAssets.background.name, graphicAssets.background.URL);
   game.load.image(graphicAssets.ship.name, graphicAssets.ship.URL);
   game.load.image(graphicAssets.asteroid.name, graphicAssets.asteroid.URL);
+  // game.load.image(graphicAssets.spaceman.name, graphicAssets.spaceman.URL);
 });
 
 const create = (() => {
@@ -47,6 +49,8 @@ const create = (() => {
       veggie = asteroid.create(100, 100, 'asteroid')
       veggie.body.immovable = true;
       ship.body.collideWorldBounds = true;
+
+      // spaceman = game.add.sprite(100, 50, 'spaceman');
 
       cursors = game.input.keyboard.createCursorKeys();
 
