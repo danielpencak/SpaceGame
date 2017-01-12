@@ -90,16 +90,11 @@ if (game.physics.arcade.collide(ship, asteroid))
 });
 
 function collisionHandler (ship, asteroid) {
-
-    // if (veg.frame == 17)
-    // {
-    //     veg.kill();
-    // }
     console.log('collide');
 }
 
 function render() {
-  // game.debug.cameraInfo(game.camera);
+  game.debug.cameraInfo(game.camera);
   // game.debug.spriteCoords(ship, 32, 500);
 }
 
