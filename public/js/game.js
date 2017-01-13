@@ -25,7 +25,7 @@ const graphicAssets = {
   ship: { URL: '/assets/xenon2_ship.png', name: 'ship' },
   asteroid: { URL: '/assets/factory.png', name: 'asteroid' },
   spaceman: { URL: '/assets/phaser-dude.png', name: 'spaceman' },
-  startingGate: { URL: '/assets/1.png', name: 'startingGate' }
+  startingGate: { URL: '/assets/bullet.png', name: 'startingGate' }
 };
 
 const preload = (() => {
