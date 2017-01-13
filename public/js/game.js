@@ -5,6 +5,7 @@
 /* eslint-disable no-console */
 'use strict';
 
+
 // global variables
 let cursors = {};
 let ship = {};
