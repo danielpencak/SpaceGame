@@ -10,6 +10,7 @@ let cursors = {};
 let ship = {};
 let asteroids = {};
 let spaceman = {};
+let startingGate = {};
 let spacemanAcquired = false;
 
 const shipProperties = {
@@ -22,7 +23,8 @@ const graphicAssets = {
   background: { URL: '/assets/deep-space.jpg', name: 'deepSpace' },
   ship: { URL: '/assets/xenon2_ship.png', name: 'ship' },
   asteroid: { URL: '/assets/factory.png', name: 'asteroid' },
-  spaceman: { URL: '/assets/phaser-dude.png', name: 'spaceman' }
+  spaceman: { URL: '/assets/phaser-dude.png', name: 'spaceman' },
+  startingGate: { URL: '/assets/1.png', name: 'startingGate' }
 };
 
 const preload = (() => {
@@ -30,9 +32,11 @@ const preload = (() => {
   game.load.image(graphicAssets.ship.name, graphicAssets.ship.URL);
   game.load.image(graphicAssets.asteroid.name, graphicAssets.asteroid.URL);
   game.load.image(graphicAssets.spaceman.name, graphicAssets.spaceman.URL);
+  game.load.image(graphicAssets.startingGate.name, graphicAssets.startingGate.URL);
 });
 
 const create = (() => {
+  // set asteroid coordinates
   const gameObjects = {
     asteroid: [[100, 200], [400, 200], [600, 200]]
   };
@@ -51,6 +55,7 @@ const create = (() => {
 
   // create asteroids
   asteroids = game.add.physicsGroup();
+
   const addAsteroids = (() => {
     for (const elem of gameObjects.asteroid) {
       const newAsteroid = asteroids.create(elem[0], elem[1], 'asteroid');
@@ -64,21 +69,33 @@ const create = (() => {
   spaceman = game.add.sprite(100, 100, 'spaceman');
   game.physics.arcade.enable(spaceman);
 
+  startingGate = game.add.sprite(600, 100, 'startingGate');
+  game.physics.arcade.enable(startingGate);
+
   cursors = game.input.keyboard.createCursorKeys();
 
   game.camera.follow(ship);
 });
 
 const update = (() => {
+  // add collision physics to asteroids and ship
   if (game.physics.arcade.collide(ship, asteroids)) {
     console.log('boom');
   }
 
+  // add overlap phyisics to pick up spaceman
   if (game.physics.arcade.overlap(ship, spaceman)) {
     spaceman.kill();
     console.log('ouch');
     spacemanAcquired = true;
     console.log(spacemanAcquired);
+  }
+
+  if (game.physics.arcade.overlap(ship, startingGate)) {
+    console.log('hit starting gate');
+    if (spacemanAcquired === true) {
+      console.log('victory');
+    }
   }
 
   // ship movement
