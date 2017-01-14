@@ -3,6 +3,7 @@
 /* eslint-disable no-use-before-define*/
 /* eslint-disable no-undef */
 /* eslint-disable no-console */
+/* eslint-disable */
 'use strict';
 
 
@@ -12,6 +13,7 @@ let ship = {};
 let asteroids = {};
 let spaceman = {};
 let startingGate = {};
+let explosion = {};
 let spacemanAcquired = false;
 
 const shipProperties = {
@@ -25,7 +27,8 @@ const graphicAssets = {
   ship: { URL: '/assets/xenon2_ship.png', name: 'ship' },
   asteroid: { URL: '/assets/factory.png', name: 'asteroid' },
   spaceman: { URL: '/assets/phaser-dude.png', name: 'spaceman' },
-  startingGate: { URL: '/assets/bullet.png', name: 'startingGate' }
+  startingGate: { URL: '/assets/bullet.png', name: 'startingGate' },
+  kaboom: { URL: '/assets/explode.png', name: 'kaboom' }
 };
 
 const preload = (() => {
@@ -34,6 +37,7 @@ const preload = (() => {
   game.load.image(graphicAssets.asteroid.name, graphicAssets.asteroid.URL);
   game.load.image(graphicAssets.spaceman.name, graphicAssets.spaceman.URL);
   game.load.image(graphicAssets.startingGate.name, graphicAssets.startingGate.URL);
+  game.load.spritesheet(graphicAssets.kaboom.name, graphicAssets.kaboom.URL, 128, 128);
 });
 
 const create = (() => {
@@ -82,6 +86,11 @@ const update = (() => {
   // add collision physics to asteroids and ship
   if (game.physics.arcade.collide(ship, asteroids)) {
     console.log('boom');
+    explosion = game.add.sprite(ship.body.x, ship.body.y, 'kaboom');
+    explosion.animations.add('kaboom');
+    explosion.anchor.setTo(0.5, 0.5);
+    explosion.play('kaboom', 30, false, true);
+    ship.kill();
   }
 
   // add overlap phyisics to pick up spaceman
