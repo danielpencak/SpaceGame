@@ -16,6 +16,14 @@ let startingGate = {};
 let explosion = {};
 let hangerTilesGroup = {};
 let spacemanAcquired = false;
+let line = {};
+let borderLineTop = {};
+let borderLineBottom = {};
+let borderLineRight = {};
+let borderLineLeft = {};
+
+let pointer = {};
+let intersectPoint = {};
 
 const mapSizeX = 1920;
 const mapSizeY = 1920;
@@ -36,7 +44,8 @@ const graphicAssets = {
   spaceman: { URL: '/assets/phaser-dude.png', name: 'spaceman' },
   startingGate: { URL: '/assets/bullet.png', name: 'startingGate' },
   kaboom: { URL: '/assets/explode.png', name: 'kaboom' },
-  hanger: { URL: '/assets/tron.png', name: 'hanger' }
+  hanger: { URL: '/assets/tron.png', name: 'hanger' },
+  pointer: { URL: '/assets/pointer.png', name: 'pointer' }
 };
 
 const preload = (() => {
@@ -47,6 +56,7 @@ const preload = (() => {
   game.load.image(graphicAssets.startingGate.name, graphicAssets.startingGate.URL);
   game.load.spritesheet(graphicAssets.kaboom.name, graphicAssets.kaboom.URL, 128, 128);
   game.load.image(graphicAssets.hanger.name, graphicAssets.hanger.URL);
+  game.load.image(graphicAssets.pointer.name, graphicAssets.pointer.URL);
 });
 
 const create = (() => {
@@ -72,6 +82,11 @@ const create = (() => {
   game.physics.arcade.enable(ship);
   ship.body.collideWorldBounds = true;
 
+  // create pointer
+  // pointer = game.add.sprite(755, 1270, 'pointer');
+
+  const offsetX = (mapSizeX / 2) - 300;
+  const offsetY = mapSizeY - 600;
   // create asteroids
   asteroidsGroup = game.add.physicsGroup();
 
@@ -84,8 +99,6 @@ const create = (() => {
   });
 
   hangerTilesGroup = game.add.physicsGroup();
-  const offsetX = (mapSizeX / 2) - 300;
-  const offsetY = mapSizeY - 600;
 
   const addHangerTile = (() => {
     for (const elem of gameObjects.hangerTiles) {
@@ -97,7 +110,7 @@ const create = (() => {
   addAsteroids();
   addHangerTile();
 
-  spaceman = game.add.sprite(100, 100, 'spaceman');
+  spaceman = game.add.sprite(1000, 1000, 'spaceman');
   game.physics.arcade.enable(spaceman);
 
   startingGate = game.add.sprite(offsetX + 150, offsetY + 0, 'startingGate');
@@ -106,10 +119,13 @@ const create = (() => {
   cursors = game.input.keyboard.createCursorKeys();
 
   game.camera.follow(ship);
+
+  // line = game.add.graphics(0,0);
+  // line.lineStyle(1, 0x0088FF, 1);
 });
 
 const update = (() => {
-  // add collision physics to asteroids and ship
+  // add collision physics
   if (game.physics.arcade.collide(ship, asteroidsGroup)) {
     console.log('boom');
     explosion = game.add.sprite(ship.body.x, ship.body.y, 'kaboom');
@@ -119,12 +135,10 @@ const update = (() => {
     ship.kill();
   }
 
-  // add collision physics to hanger tiles and ship
   if (game.physics.arcade.collide(ship, hangerTilesGroup)) {
     console.log('safe');
   }
 
-  // add overlap phyisics to pick up spaceman
   if (game.physics.arcade.overlap(ship, spaceman)) {
     spaceman.kill();
     console.log('ouch');
@@ -139,7 +153,7 @@ const update = (() => {
     }
   }
 
-  // ship movement
+  // ship movement /////////////////////
   if (cursors.up.isDown) {
     game.physics.arcade.accelerationFromRotation(ship.rotation - 1.5708, 200, ship.body.acceleration);
   }
@@ -155,11 +169,50 @@ const update = (() => {
   else {
     ship.body.angularVelocity = 0;
   }
+
+  // border lines //////////////////////
+  if (spacemanAcquired) {
+    line = new Phaser.Line(ship.body.x, ship.body.y, shipProperties.startX, shipProperties.startY);
+  } else {
+    line = new Phaser.Line(ship.body.x, ship.body.y, spaceman.body.x, spaceman.body.y);
+  }
+
+  borderLineTop = new Phaser.Line(game.camera.x, game.camera.y, game.camera.x + screenSizeX, game.camera.y)
+
+  borderLineBottom = new Phaser.Line(game.camera.x, game.camera.y + screenSizeY, game.camera.x + screenSizeX, game.camera.y + screenSizeY)
+
+  borderLineRight = new Phaser.Line(game.camera.x + screenSizeX, game.camera.y, game.camera.x + screenSizeX, game.camera.y + screenSizeY)
+
+  borderLineLeft = new Phaser.Line(game.camera.x, game.camera.y, game.camera.x, game.camera.y + screenSizeY)
+
+  // pointer creation, alignment, deletion ///////////
+  if (pointer.key) {
+    pointer.destroy();
+  }
+
+  const intersectFunction = ((borderLines) => {
+    for (const borderLine of borderLines) {
+      intersectPoint = line.intersects(borderLine, true);
+
+      if (intersectPoint) {
+        pointer = game.add.sprite(intersectPoint.x, intersectPoint.y, 'pointer');
+        pointer.anchor.set(0.5, - 1);
+        pointer.angle = (line.angle * 360) / (Math.PI * 2) + 90;
+      }
+    }
+  })
+  intersectFunction([borderLineTop, borderLineBottom, borderLineLeft, borderLineRight]);
 });
 
 const render = (() => {
   // game.debug.cameraInfo(game.camera);
   // game.debug.spriteCoords(ship, 32, 500);
+  // game.debug.geom(line);
+  // game.debug.geom(borderLineTop);
+  // game.debug.geom(borderLineBottom);
+  // game.debug.geom(borderLineRight);
+  // game.debug.geom(borderLineLeft);
+  // game.debug.lineInfo(line, 32, 32);
 });
 
 const game = new Phaser.Game(screenSizeX, screenSizeY, Phaser.CANVAS, 'gamecontainer', { preload, create, update, render });
