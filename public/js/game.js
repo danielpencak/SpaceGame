@@ -10,16 +10,23 @@
 // global variables
 let cursors = {};
 let ship = {};
-let asteroids = {};
+let asteroidsGroup = {};
 let spaceman = {};
 let startingGate = {};
 let explosion = {};
+let hangerTilesGroup = {};
 let spacemanAcquired = false;
+
+const mapSizeX = 1920;
+const mapSizeY = 1920;
+
+const screenSizeX = 1000;
+const screenSizeY = 700;
 
 const shipProperties = {
    // start coordinates
-  startX: 250,
-  startY: 250
+  startX: mapSizeX / 2,
+  startY: mapSizeY - 300
 };
 
 const graphicAssets = {
@@ -28,7 +35,8 @@ const graphicAssets = {
   asteroid: { URL: '/assets/factory.png', name: 'asteroid' },
   spaceman: { URL: '/assets/phaser-dude.png', name: 'spaceman' },
   startingGate: { URL: '/assets/bullet.png', name: 'startingGate' },
-  kaboom: { URL: '/assets/explode.png', name: 'kaboom' }
+  kaboom: { URL: '/assets/explode.png', name: 'kaboom' },
+  hanger: { URL: '/assets/tron.png', name: 'hanger' }
 };
 
 const preload = (() => {
@@ -38,17 +46,23 @@ const preload = (() => {
   game.load.image(graphicAssets.spaceman.name, graphicAssets.spaceman.URL);
   game.load.image(graphicAssets.startingGate.name, graphicAssets.startingGate.URL);
   game.load.spritesheet(graphicAssets.kaboom.name, graphicAssets.kaboom.URL, 128, 128);
+  game.load.image(graphicAssets.hanger.name, graphicAssets.hanger.URL);
 });
 
 const create = (() => {
   // set asteroid coordinates
   const gameObjects = {
-    asteroid: [[100, 200], [400, 200], [600, 200]]
+    asteroids: [[100, 200], [400, 200], [600, 200]],
+    hangerTiles: [[0, 0], [50, 0], [100, 0], [450, 0], [500, 0], [550, 0],
+    [0, 50], [0, 100], [0, 150], [0, 200], [0, 250], [0, 300], [0, 350],
+    [550, 50], [550, 50], [550, 50], [550, 100], [550, 150], [550, 200], [550, 250], [550, 300], [550, 350],
+    [50, 350], [100, 350], [150, 350], [200, 350], [250, 350], [300, 350], [350, 350], [400, 350], [450, 350], [500, 350]]
   };
 
   game.add.tileSprite(0, 0, 1920, 1920, 'deepSpace');
 
-  game.world.setBounds(0, 0, 1920, 1920);
+
+  game.world.setBounds(0, 0, mapSizeX, mapSizeY);
 
   game.physics.startSystem(Phaser.Physics.arcade);
 
@@ -59,22 +73,34 @@ const create = (() => {
   ship.body.collideWorldBounds = true;
 
   // create asteroids
-  asteroids = game.add.physicsGroup();
+  asteroidsGroup = game.add.physicsGroup();
 
   const addAsteroids = (() => {
-    for (const elem of gameObjects.asteroid) {
-      const newAsteroid = asteroids.create(elem[0], elem[1], 'asteroid');
+    for (const elem of gameObjects.asteroids) {
+      const newObject = asteroidsGroup.create(elem[0], elem[1], 'asteroid');
 
-      newAsteroid.body.immovable = true;
+      newObject.body.immovable = true;
     }
   });
 
-  addAsteroids(gameObjects);
+  hangerTilesGroup = game.add.physicsGroup();
+  const offsetX = (mapSizeX / 2) - 300;
+  const offsetY = mapSizeY - 600;
+
+  const addHangerTile = (() => {
+    for (const elem of gameObjects.hangerTiles) {
+      const newObject = hangerTilesGroup.create(offsetX + elem[0], offsetY + elem[1], 'hanger');
+
+      newObject.body.immovable = true;
+    }
+  });
+  addAsteroids();
+  addHangerTile();
 
   spaceman = game.add.sprite(100, 100, 'spaceman');
   game.physics.arcade.enable(spaceman);
 
-  startingGate = game.add.sprite(600, 100, 'startingGate');
+  startingGate = game.add.sprite(offsetX + 150, offsetY + 0, 'startingGate');
   game.physics.arcade.enable(startingGate);
 
   cursors = game.input.keyboard.createCursorKeys();
@@ -84,13 +110,18 @@ const create = (() => {
 
 const update = (() => {
   // add collision physics to asteroids and ship
-  if (game.physics.arcade.collide(ship, asteroids)) {
+  if (game.physics.arcade.collide(ship, asteroidsGroup)) {
     console.log('boom');
     explosion = game.add.sprite(ship.body.x, ship.body.y, 'kaboom');
     explosion.animations.add('kaboom');
     explosion.anchor.setTo(0.5, 0.5);
     explosion.play('kaboom', 30, false, true);
     ship.kill();
+  }
+
+  // add collision physics to hanger tiles and ship
+  if (game.physics.arcade.collide(ship, hangerTilesGroup)) {
+    console.log('safe');
   }
 
   // add overlap phyisics to pick up spaceman
@@ -131,4 +162,4 @@ const render = (() => {
   // game.debug.spriteCoords(ship, 32, 500);
 });
 
-const game = new Phaser.Game(1000, 700, Phaser.CANVAS, 'gamecontainer', { preload, create, update, render });
+const game = new Phaser.Game(screenSizeX, screenSizeY, Phaser.CANVAS, 'gamecontainer', { preload, create, update, render });
