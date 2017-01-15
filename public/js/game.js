@@ -131,7 +131,6 @@ const update = (() => {
 
   // add collision physics
   if (game.physics.arcade.collide(ship, asteroidsGroup)) {
-    console.log('boom');
     explosion = game.add.sprite(ship.body.x, ship.body.y, 'kaboom');
     explosion.animations.add('kaboom');
     explosion.anchor.setTo(0.5, 0.5);
@@ -141,15 +140,11 @@ const update = (() => {
     setTimeout(restart, 600);
   }
 
-  if (game.physics.arcade.collide(ship, hangerTilesGroup)) {
-    console.log('safe');
-  }
+  game.physics.arcade.collide(ship, hangerTilesGroup);
 
   if (game.physics.arcade.overlap(ship, spaceman)) {
     spaceman.kill();
-    console.log('ouch');
     spacemanAcquired = true;
-    console.log(spacemanAcquired);
   }
 
   if (game.physics.arcade.overlap(ship, startingGate)) {
