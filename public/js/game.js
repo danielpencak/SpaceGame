@@ -137,10 +137,8 @@ const update = (() => {
     explosion.anchor.setTo(0.5, 0.5);
     explosion.play('kaboom', 30, false, true);
     ship.kill();
-    //delay
+
     setTimeout(restart, 600);
-    // restart();
-    // ship.reset(shipProperties.startX, shipProperties.startY);
   }
 
   if (game.physics.arcade.collide(ship, hangerTilesGroup)) {
