@@ -204,6 +204,7 @@ const update = (() => {
       finishTime = time;
       gameStarted = false;
       game.paused = true;
+      pauseLabel.destroy();
     }
     startTime = Date.now() - totalTimePaused;
   }
