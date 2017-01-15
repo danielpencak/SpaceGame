@@ -21,7 +21,6 @@ let borderLineTop = {};
 let borderLineBottom = {};
 let borderLineRight = {};
 let borderLineLeft = {};
-
 let pointer = {};
 let intersectPoint = {};
 
@@ -30,6 +29,10 @@ const mapSizeY = 1920;
 
 const screenSizeX = 1000;
 const screenSizeY = 700;
+
+// const screenSizeX = mapSizeX;
+// const screenSizeY = mapSizeY;
+
 
 const shipProperties = {
    // start coordinates
@@ -60,9 +63,17 @@ const preload = (() => {
 });
 
 const create = (() => {
+
+  // cursor = game.add.sprite(0, 0, 'sprite');
+  // //   sprite.alpha = 0.5 ;
+  // //   sprite.x = game.width / 2 ;
+  // //   sprite.anchor.x = sprite.anchor.y = 0.5 ;
+  // cursor.inputEnabled = true ;
+
+
   // set asteroid coordinates
   const gameObjects = {
-    asteroids: [[100, 200], [400, 200], [600, 200]],
+    asteroids: [[630, 550], [674, 686], [690, 770], [769, 510], [835, 660], [535, 730], [1005, 619], [999, 675], [885, 835], [456, 547], [346, 634], [451, 289], [346, 634], [366, 434], [833, 387], [705, 207], [960, 273], [702, 994], [569, 938], [409, 867], [451, 1082], [1185, 882], [1272, 846], [1418, 871], [1588, 895], [451, 289], [346, 634], [366, 434]],
     hangerTiles: [[0, 0], [50, 0], [100, 0], [450, 0], [500, 0], [550, 0],
     [0, 50], [0, 100], [0, 150], [0, 200], [0, 250], [0, 300], [0, 350],
     [550, 50], [550, 50], [550, 50], [550, 100], [550, 150], [550, 200], [550, 250], [550, 300], [550, 350],
@@ -110,7 +121,7 @@ const create = (() => {
   addAsteroids();
   addHangerTile();
 
-  spaceman = game.add.sprite(1000, 1000, 'spaceman');
+  spaceman = game.add.sprite(600, 400, 'spaceman');
   game.physics.arcade.enable(spaceman);
 
   startingGate = game.add.sprite(offsetX + 150, offsetY + 0, 'startingGate');
@@ -125,6 +136,7 @@ const create = (() => {
 });
 
 const update = (() => {
+
   // add collision physics
   if (game.physics.arcade.collide(ship, asteroidsGroup)) {
     console.log('boom');
@@ -183,7 +195,7 @@ const update = (() => {
 
   borderLineRight = new Phaser.Line(game.camera.x + screenSizeX, game.camera.y, game.camera.x + screenSizeX, game.camera.y + screenSizeY)
 
-  borderLineLeft = new Phaser.Line(game.camera.x, game.camera.y, game.camera.x, game.camera.y + screenSizeY)
+  borderLineLeft = new Phaser.Line(game.camera.x - 10, game.camera.y, game.camera.x - 10, game.camera.y + screenSizeY)
 
   // pointer creation, alignment, deletion ///////////
   if (pointer.key) {
@@ -205,6 +217,7 @@ const update = (() => {
 });
 
 const render = (() => {
+  // game.debug.pointer(game.input.activePointer);
   // game.debug.cameraInfo(game.camera);
   // game.debug.spriteCoords(ship, 32, 500);
   // game.debug.geom(line);
