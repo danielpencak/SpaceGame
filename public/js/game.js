@@ -203,6 +203,7 @@ const update = (() => {
       // stop game
       finishTime = time;
       gameStarted = false;
+      game.paused = true;
     }
     startTime = Date.now() - totalTimePaused;
   }
