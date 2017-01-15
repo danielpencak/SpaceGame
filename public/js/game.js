@@ -4,6 +4,7 @@
 /* eslint-disable no-use-before-define*/
 /* eslint-disable no-undef */
 /* eslint-disable no-console */
+/* eslint-disable */
 
 'use strict';
 
@@ -24,6 +25,15 @@ let borderLineRight = {};
 let borderLineLeft = {};
 let pointer = {};
 let intersectPoint = {};
+let pauseTime = 0;
+let unpauseTime = 0;
+let totalTimePaused = 0;
+
+let startTime = 0;
+let time = 0;
+let timeText = {};
+let gameStarted = false;
+let finishTime = 0;
 
 const mapSizeX = 1920;
 const mapSizeY = 1920;
@@ -134,21 +144,35 @@ const update = (() => {
   pauseLabel.inputEnabled = true;
 
   pauseLabel.events.onInputUp.add(() => {
+
     game.paused = true;
     if (pauseLabel.text) {
       pauseLabel.kill();
     }
+    pauseTime = Date.now() - startTime;
     pauseLabel = game.add.text(game.camera.x, game.camera.y, 'Play', { font: '24px Arial', fill: 'red' });
   });
 
   const unpause = (() => {
     if (game.paused) {
       game.paused = false;
+      totalTimePaused += Date.now() - startTime - pauseTime;
     }
   });
 
   game.input.onDown.add(unpause, self);
 
+  // time counter text
+  // time = game.time.totalElapsedSeconds().toFixed(1)
+  if (timeText.text) {
+    timeText.kill();
+  }
+
+  if (gameStarted) {
+    time = (((Date.now() - startTime) - totalTimePaused) / 1000).toFixed(2);
+
+    timeText = game.add.text(game.camera.x + screenSizeX - 200, game.camera.y, `Time: ${time}`, { fontSize: '32px', fill: 'red' });
+  }
   // add collision physics
   if (game.physics.arcade.collide(ship, asteroidsGroup)) {
     explosion = game.add.sprite(ship.body.x, ship.body.y, 'kaboom');
@@ -159,6 +183,9 @@ const update = (() => {
     spacemanAcquired = false;
 
     setTimeout(restart, 600);
+
+    startTime = Date.now(); //reset time
+    gameStarted = false;
   }
 
   game.physics.arcade.collide(ship, hangerTilesGroup);
@@ -169,10 +196,15 @@ const update = (() => {
   }
 
   if (game.physics.arcade.overlap(ship, startingGate)) {
+    gameStarted = true;
     console.log('hit starting gate');
     if (spacemanAcquired === true) {
-      console.log('victory');
+      console.log('victory ' + time);
+      // stop game
+      finishTime = time;
+      gameStarted = false;
     }
+    startTime = Date.now() - totalTimePaused;
   }
 
   // ship movement /////////////////////
