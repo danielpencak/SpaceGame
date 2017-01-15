@@ -1,13 +1,14 @@
 /* eslint-disable no-extra-parens */
 /* eslint-disable max-len*/
+/* eslint-disable max-statements*/
 /* eslint-disable no-use-before-define*/
 /* eslint-disable no-undef */
 /* eslint-disable no-console */
-/* eslint-disable */
+
 'use strict';
 
-
 // global variables
+let pauseLabel = {};
 let cursors = {};
 let ship = {};
 let asteroidsGroup = {};
@@ -32,7 +33,6 @@ const screenSizeY = 700;
 
 // const screenSizeX = mapSizeX;
 // const screenSizeY = mapSizeY;
-
 
 const shipProperties = {
    // start coordinates
@@ -63,7 +63,6 @@ const preload = (() => {
 });
 
 const create = (() => {
-
   // set asteroid coordinates
   const gameObjects = {
     asteroids: [[630, 550], [674, 686], [690, 770], [769, 510], [835, 660], [535, 730], [1005, 619], [999, 675], [885, 835], [456, 547], [346, 634], [451, 289], [346, 634], [366, 434], [833, 387], [705, 207], [960, 273], [702, 994], [569, 938], [409, 867], [451, 1082], [1185, 882], [1272, 846], [1418, 871], [1588, 895], [451, 289], [346, 634], [366, 434]],
@@ -90,6 +89,7 @@ const create = (() => {
 
   const offsetX = (mapSizeX / 2) - 300;
   const offsetY = mapSizeY - 600;
+
   // create asteroids
   asteroidsGroup = game.add.physicsGroup();
 
@@ -110,6 +110,7 @@ const create = (() => {
       newObject.body.immovable = true;
     }
   });
+
   addAsteroids();
   addHangerTile();
 
@@ -122,12 +123,31 @@ const create = (() => {
   cursors = game.input.keyboard.createCursorKeys();
 
   game.camera.follow(ship);
-
-  // line = game.add.graphics(0,0);
-  // line.lineStyle(1, 0x0088FF, 1);
 });
 
 const update = (() => {
+  // pause / play
+  if (pauseLabel.text) {
+    pauseLabel.kill();
+  }
+  pauseLabel = game.add.text(game.camera.x, game.camera.y, 'Pause', { font: '24px Arial', fill: 'red' });
+  pauseLabel.inputEnabled = true;
+
+  pauseLabel.events.onInputUp.add(() => {
+    game.paused = true;
+    if (pauseLabel.text) {
+      pauseLabel.kill();
+    }
+    pauseLabel = game.add.text(game.camera.x, game.camera.y, 'Play', { font: '24px Arial', fill: 'red' });
+  });
+
+  const unpause = (() => {
+    if (game.paused) {
+      game.paused = false;
+    }
+  });
+
+  game.input.onDown.add(unpause, self);
 
   // add collision physics
   if (game.physics.arcade.collide(ship, asteroidsGroup)) {
@@ -136,6 +156,7 @@ const update = (() => {
     explosion.anchor.setTo(0.5, 0.5);
     explosion.play('kaboom', 30, false, true);
     ship.kill();
+    spacemanAcquired = false;
 
     setTimeout(restart, 600);
   }
@@ -174,17 +195,18 @@ const update = (() => {
   // border lines //////////////////////
   if (spacemanAcquired) {
     line = new Phaser.Line(ship.body.x, ship.body.y, shipProperties.startX, shipProperties.startY);
-  } else {
+  }
+  else {
     line = new Phaser.Line(ship.body.x, ship.body.y, spaceman.body.x, spaceman.body.y);
   }
 
-  borderLineTop = new Phaser.Line(game.camera.x, game.camera.y, game.camera.x + screenSizeX, game.camera.y)
+  borderLineTop = new Phaser.Line(game.camera.x, game.camera.y, game.camera.x + screenSizeX, game.camera.y);
 
-  borderLineBottom = new Phaser.Line(game.camera.x, game.camera.y + screenSizeY, game.camera.x + screenSizeX, game.camera.y + screenSizeY)
+  borderLineBottom = new Phaser.Line(game.camera.x, game.camera.y + screenSizeY, game.camera.x + screenSizeX, game.camera.y + screenSizeY);
 
-  borderLineRight = new Phaser.Line(game.camera.x + screenSizeX, game.camera.y, game.camera.x + screenSizeX, game.camera.y + screenSizeY)
+  borderLineRight = new Phaser.Line(game.camera.x + screenSizeX, game.camera.y, game.camera.x + screenSizeX, game.camera.y + screenSizeY);
 
-  borderLineLeft = new Phaser.Line(game.camera.x - 10, game.camera.y, game.camera.x - 10, game.camera.y + screenSizeY)
+  borderLineLeft = new Phaser.Line(game.camera.x - 10, game.camera.y, game.camera.x - 10, game.camera.y + screenSizeY);
 
   // pointer creation, alignment, deletion ///////////
   if (pointer.key) {
@@ -197,15 +219,16 @@ const update = (() => {
 
       if (intersectPoint) {
         pointer = game.add.sprite(intersectPoint.x, intersectPoint.y, 'pointer');
-        pointer.anchor.set(0.5, - 1);
+        pointer.anchor.set(0.5, -1);
         pointer.angle = (line.angle * 360) / (Math.PI * 2) + 90;
       }
     }
-  })
+  });
+
   intersectFunction([borderLineTop, borderLineBottom, borderLineLeft, borderLineRight]);
 });
 
-const restart = (() => {game.state.start(game.state.current)});
+const restart = (() => { game.state.start(game.state.current); });
 
 const render = (() => {
   // game.debug.pointer(game.input.activePointer);
