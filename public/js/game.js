@@ -64,13 +64,6 @@ const preload = (() => {
 
 const create = (() => {
 
-  // cursor = game.add.sprite(0, 0, 'sprite');
-  // //   sprite.alpha = 0.5 ;
-  // //   sprite.x = game.width / 2 ;
-  // //   sprite.anchor.x = sprite.anchor.y = 0.5 ;
-  // cursor.inputEnabled = true ;
-
-
   // set asteroid coordinates
   const gameObjects = {
     asteroids: [[630, 550], [674, 686], [690, 770], [769, 510], [835, 660], [535, 730], [1005, 619], [999, 675], [885, 835], [456, 547], [346, 634], [451, 289], [346, 634], [366, 434], [833, 387], [705, 207], [960, 273], [702, 994], [569, 938], [409, 867], [451, 1082], [1185, 882], [1272, 846], [1418, 871], [1588, 895], [451, 289], [346, 634], [366, 434]],
@@ -81,7 +74,6 @@ const create = (() => {
   };
 
   game.add.tileSprite(0, 0, 1920, 1920, 'deepSpace');
-
 
   game.world.setBounds(0, 0, mapSizeX, mapSizeY);
 
@@ -145,6 +137,10 @@ const update = (() => {
     explosion.anchor.setTo(0.5, 0.5);
     explosion.play('kaboom', 30, false, true);
     ship.kill();
+    //delay
+    setTimeout(restart, 600);
+    // restart();
+    // ship.reset(shipProperties.startX, shipProperties.startY);
   }
 
   if (game.physics.arcade.collide(ship, hangerTilesGroup)) {
@@ -215,6 +211,8 @@ const update = (() => {
   })
   intersectFunction([borderLineTop, borderLineBottom, borderLineLeft, borderLineRight]);
 });
+
+const restart = (() => {game.state.start(game.state.current)});
 
 const render = (() => {
   // game.debug.pointer(game.input.activePointer);
