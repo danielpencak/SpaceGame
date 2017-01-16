@@ -1,0 +1,46 @@
+* {
+  box-sizing: border-box;
+}
+body {
+/*height: 100vh;
+width: 100vw;*/
+/*display: inline-block;*/
+}
+
+main {
+  height: 100vh;
+  width: 100vw;
+  /*background-color: blue;*/
+  /*background-image: url("../assets/screenShotBackground.png");*/
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.modal-content {
+  color: black;
+}
+
+/*.passwordSU {
+  border: 1px solid blue;
+}*/
+#header {
+  background-color: black;
+}
+
+/*#first_name {
+  border-bottom: 1px solid blue;
+}*/
+
+#modal1 {
+  border: 5px solid black;
+}
+
+.input-field {
+  /*background-color: darkgrey;*/
+  border-bottom: 1px solid blue;
+}
+/*#small {
+  padding: 0;
+  height: 30px;
+}*/

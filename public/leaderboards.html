@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Space Game!</title>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="css/materialize.css">
+    <link type="text/css" rel="stylesheet" href="css/leaderboards.css"/>
+
+    <script defer src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    <!-- <script defer src="js/jquery.js"></script> -->
+    <script defer src='js/materialize2.js'></script>
+    <script defer src='js/leaderboards.js'></script>
+  </head>
+  <body>
+    <header>
+      <nav id="header">
+        <div class="nav-wrapper">
+          <a href="index.html" class="brand-logo">Space Race</a>
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="sass.html">Leaderboards</a></li>
+
+            <li>
+              <form>
+                <div class="row">
+                  <!-- <div class="input-field col s12">
+                    <input id="user_name2" type="text" class="validate">
+                    <label class="active" for="user_name2">User Name</label>
+                  </div> -->
+                  <div class="input-field col s6">
+                    <input placeholder="Username" id="usernameLI" type="text" class="validate">
+                    <!-- <label for="first_name">First Name</label> -->
+                  </div>
+                </div>
+              </form>
+            </li>
+            <li>
+              <form>
+                <div class="row">
+                  <div class="input-field col s6">
+                    <input placeholder="Password" id="passwordLI" type="text" class="validate">
+                    <!-- <label for="first_name">First Name</label> -->
+                  </div>
+                </div>
+              </form>
+            </li>
+            <li><a href="sass.html">Login</a></li>
+            <li>
+              <!-- <div class="col s3 center-align">
+                <button data-target="modal1" class="btn grey darken-2 modal-trigger">Sign Up</button>
+              </div>
+
+              <div id="modal1" class="modal">
+                <div class="modal-content">
+                  <h3>Sign up</h3>
+                </div>
+              </div> -->
+              <!-- Modal Trigger -->
+              <a class="modal-trigger waves-effect waves-light btn" href="#modal1">Sign Up</a>
+
+              <!-- Modal Structure -->
+              <div id="modal1" class="modal modal-fixed-footer">
+                <div class="modal-content">
+                  <h4>Sign Up</h4>
+
+                  <form>
+                    <div class="row">
+                      <div class="usernameSU input-field col s12">
+                        <input placeholder="Username" id="usernameSU" type="text" class="validate">
+
+                      </div>
+                      <div class="passwordSU input-field col s12">
+                        <input placeholder="Password" id="passwordSU" type="text" class="validate">
+
+                      </div>
+                      <div class="passwordSU input-field col s12">
+                        <input placeholder="Confirm Password" id="passwordconfirm" type="text" class="validate">
+
+                      </div>
+                  </form>
+                </div>
+
+                <div class="modal-footer">
+                  <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Submit</a>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <div class="container">
+        <table class="striped">
+          <thead>
+            <tr>
+              <th data-field="id">Time</th>
+              <th data-field="name">Username</th>
+                <th data-field="name">Level</th>
+                <th data-field="name">Difficulty</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td>10</td>
+              <td>Dan</td>
+              <td>1</td>
+              <td>Easy</td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td>Will</td>
+              <td>3</td>
+              <td>Hard</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </body>
+</html>
