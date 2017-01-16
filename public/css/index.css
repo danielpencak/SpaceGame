@@ -2,6 +2,7 @@
   box-sizing: border-box;
 }
 body {
+  overflow: hidden;
 /*height: 100vh;
 width: 100vw;*/
 /*display: inline-block;*/
@@ -15,7 +16,7 @@ main {
   background-size: cover;
   display: flex;
   justify-content: center;
-  align-items: center;
+  /*align-items: center;*/
 }
 .modal-content {
   color: black;
@@ -32,15 +33,40 @@ main {
   border-bottom: 1px solid blue;
 }*/
 
-#modal1 {
+#signUpModal {
   border: 5px solid black;
 }
 
 .input-field {
   /*background-color: darkgrey;*/
-  border-bottom: 1px solid blue;
+  /*border-bottom: 1px solid blue;*/
 }
 /*#small {
   padding: 0;
   height: 30px;
 }*/
+
+.validate {
+  border: 1px solid blue;
+  height: 100%;
+  margin: 0;
+  color: cyan;
+}
+
+ul {
+  height: 64px;
+}
+
+.play {
+  font-size: 80px;
+  color: #26A69A;
+  margin-top: 220px;
+}
+
+.title {
+  font-family: 'Audiowide', cursive;
+}
+
+.btn {
+  margin-right: 5px;
+}

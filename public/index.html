@@ -5,22 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Space Race!</title>
 
-
+    <link href="https://fonts.googleapis.com/css?family=Audiowide" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="css/materialize.css">
     <link type="text/css" rel="stylesheet" href="css/index.css"/>
 
     <script defer src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
     <!-- <script defer src="js/jquery.js"></script> -->
-    <script defer src='js/materialize2.js'></script>
-    <script defer src='js/index.js'></script>
+    <script defer src="js/materialize.js"></script>
+    <script defer src="js/index.js"></script>
   </head>
 
   <body>
     <header>
       <nav id="header">
         <div class="nav-wrapper">
-          <a href="#" class="brand-logo">Space Race</a>
+          <a href="#" class="brand-logo title">Space Race</a>
           <ul id="nav-mobile" class="right hide-on-med-and-down">
             <li><a href="leaderboards.html">Leaderboards</a></li>
 
@@ -60,10 +60,11 @@
                 </div>
               </div> -->
               <!-- Modal Trigger -->
-              <a class="modal-trigger waves-effect waves-light btn" href="#modal1">Sign Up</a>
+              <!-- <a class="modal-trigger waves-effect waves-light btn" href=".modal">Sign Up</a> -->
+              <button data-target="signUpModal" class="btn">Sign Up</button>
 
               <!-- Modal Structure -->
-              <div id="modal1" class="modal modal-fixed-footer">
+              <div id="signUpModal" class="modal modal-fixed-footer">
                 <div class="modal-content">
                   <h4>Sign Up</h4>
 
@@ -95,7 +96,7 @@
       </nav>
     </header>
     <main>
-      <a href="game.html"><i class="material-icons">play_circle_filled</i></a>
+      <a href="game.html"><i class="material-icons play">play_circle_filled</i></a>
     </main>
   </body>
-</html> -->
+</html>
