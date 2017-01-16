@@ -19,13 +19,36 @@ main {
   /*align-items: center;*/
 }
 .modal-content {
-  color: black;
+  background-color: darkgrey;
+  color: white;
 }
 
-/*.passwordSU {
-  border: 1px solid blue;
+#usernameLI, #passwordLI {
+  border: 5px solid black;
+  height: 100%;
+  margin: 0;
+  padding: 5px;
+  color: white;
+  background-color: darkgrey;
+  padding: 0;
+}
+
+/*#usernameLI {
+  height: 100%;
+  margin: 5px;
+  padding: 5px;
+  background-color: white;
+  padding: 0;
 }*/
+
+#passwordSU, #usernameSU, #passwordConfirm {
+  padding: 0;
+  margin: 0 !important;
+  border-bottom: 1px solid white;
+}
+
 #header {
+  /*display: flex;*/
   background-color: black;
 }
 
@@ -46,20 +69,13 @@ main {
   height: 30px;
 }*/
 
-.validate {
-  border: 1px solid blue;
-  height: 100%;
-  margin: 0;
-  color: cyan;
-}
-
 ul {
   height: 64px;
 }
 
 .play {
   font-size: 80px;
-  color: #26A69A;
+  color: white;
   margin-top: 220px;
 }
 
@@ -69,4 +85,45 @@ ul {
 
 .btn {
   margin-right: 5px;
+  margin-left: 15px;
+  background-color: #483b36;
+}
+
+.btn:hover {
+  background-color: orange;
+}
+
+::-webkit-input-placeholder {
+    color: white;
+    font-size: 15px;
+    opacity: 1 !important; /* for older chrome versions. may no longer apply. */
+}
+
+:-moz-placeholder { /* Firefox 18- */
+    color: white;
+    font-size: 15px;
+    opacity: 1 !important;
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+    color: white;
+    font-size: 15px;
+    opacity: 1 !important;
+}
+
+:-ms-input-placeholder {
+  font-size: 15px;
+  color: white;
+}
+
+.leaderboards {
+  margin-right: 200px;
+}
+
+#signUp {
+  background-color: orangered;
+}
+
+#signUp:hover {
+  background-color: orange;
 }
