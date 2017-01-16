@@ -2,23 +2,46 @@
   "name": "space_game",
   "version": "0.1.0",
   "description": "",
-  "main": ".eslintrc.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "heroku-postbuild": "knex migrate:latest",
+    "knex": "knex",
+    "lint": "eslint  --ignore-pattern public/js/vendor",
+    "nf": "nf start",
+    "start": "nodemon server.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/danielpencak/SpaceGame.git"
   },
   "keywords": [],
-  "author": "Daniel Pencak <danielpencak@gmail.com>",
+  "contributors": ["Daniel Pencak <danielpencak@gmail.com>", "William Helton <will9_30@yahoo.com>"],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/danielpencak/SpaceGame/issues"
   },
   "homepage": "https://github.com/danielpencak/SpaceGame#readme",
   "dependencies": {
-    "express": "^4.14.0"
+    "bcrypt-as-promised": "^1.1.0",
+    "body-parser": "^1.15.2",
+    "boom": "^4.2.0",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.14.0",
+    "humps": "^2.0.0",
+    "jsonwebtoken": "^7.2.1",
+    "knex": "^0.12.6",
+    "morgan": "^1.7.0",
+    "pg": "^6.1.2"
+  },
+  "devDependencies": {
+    "dotenv": "^4.0.0",
+    "eslint": "^3.13.1",
+    "eslint-config-ryansobol": "^10.0.2",
+    "foreman": "^2.0.0",
+    "nodemon": "^1.11.0"
+  },
+  "engines": {
+    "node": "7.4.0"
   }
 }
