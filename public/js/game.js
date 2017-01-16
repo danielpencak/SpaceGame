@@ -276,4 +276,4 @@ const render = (() => {
   // game.debug.lineInfo(line, 32, 32);
 });
 
-const game = new Phaser.Game(screenSizeX, screenSizeY, Phaser.CANVAS, 'gamecontainer', { preload, create, update, render });
+const game = new Phaser.Game(screenSizeX, screenSizeY, Phaser.CANVAS, 'canvas', { preload, create, update, render });

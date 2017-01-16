@@ -8,7 +8,9 @@ const app = express();
 
 app.disable('x-powered-by');
 
-app.use(express.static('public'));
+const path = require('path');
+
+app.use(express.static(path.join('public')));
 
 app.use((_req, res, _next) => {
   return res.sendStatus(404);
