@@ -5,3 +5,7 @@ canvas {
   margin-top: 0px;
   margin: 0 auto;
 }
+.modal {
+  color: white;
+  background-color: black;
+}

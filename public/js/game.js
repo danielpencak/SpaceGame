@@ -137,6 +137,7 @@ const create = (() => {
 
 const update = (() => {
   // pause / play
+
   if (pauseLabel.text) {
     pauseLabel.kill();
   }
@@ -144,22 +145,26 @@ const update = (() => {
   pauseLabel.inputEnabled = true;
 
   pauseLabel.events.onInputUp.add(() => {
-
     game.paused = true;
-    if (pauseLabel.text) {
-      pauseLabel.kill();
-    }
+    $('#pauseModal').css('display', 'block');
+    pauseLabel.kill();
+    timeText.kill();
     pauseTime = Date.now() - startTime;
-    pauseLabel = game.add.text(game.camera.x, game.camera.y, 'Play', { font: '24px Arial', fill: 'red' });
+    // pauseLabel = game.add.text(game.camera.x, game.camera.y, 'Play', { font: '24px Arial', fill: 'red' });
   });
+
 
   const unpause = (() => {
     if (game.paused) {
+      $('#pauseModal').css('display', 'none');
       game.paused = false;
       totalTimePaused += Date.now() - startTime - pauseTime;
     }
   });
 
+  $('#playButton').on('click', () => {
+    unpause();
+  });
   game.input.onDown.add(unpause, self);
 
   // time counter text
@@ -204,7 +209,10 @@ const update = (() => {
       finishTime = time;
       gameStarted = false;
       game.paused = true;
-      pauseLabel.destroy();
+      $('#endModal').css('display', 'block');
+      $('#finishTime').text(`Time: ${time}`);
+      pauseLabel.kill();
+      timeText.kill();
     }
     startTime = Date.now() - totalTimePaused;
   }
