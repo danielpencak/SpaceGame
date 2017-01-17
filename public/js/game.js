@@ -4,36 +4,39 @@
 /* eslint-disable no-use-before-define*/
 /* eslint-disable no-undef */
 /* eslint-disable no-console */
-/* eslint-disable */
-
 'use strict';
 
 // global variables
+
+// sprites
+let ship = {};
+let spaceman = {};
+let explosion = {};
+let asteroidsGroup = {};
+let hangerTilesGroup = {};
+let pointer = {};
+let startingGate = {};
+
+// control/UI
 let pauseLabel = {};
 let cursors = {};
-let ship = {};
-let asteroidsGroup = {};
-let spaceman = {};
-let startingGate = {};
-let explosion = {};
-let hangerTilesGroup = {};
-let spacemanAcquired = false;
+let timeText = {};
+
+// waypoint
 let line = {};
 let borderLineTop = {};
 let borderLineBottom = {};
 let borderLineRight = {};
 let borderLineLeft = {};
-let pointer = {};
 let intersectPoint = {};
-let pauseTime = 0;
-let unpauseTime = 0;
-let totalTimePaused = 0;
 
+// game state
+let spacemanAcquired = false;
+let pauseTime = 0;
+let totalTimePaused = 0;
 let startTime = 0;
 let time = 0;
-let timeText = {};
 let gameStarted = false;
-let finishTime = 0;
 
 const mapSizeX = 1920;
 const mapSizeY = 1920;
@@ -41,9 +44,6 @@ const mapSizeY = 1920;
 // set canvas width to window resolution
 const screenSizeX = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
 const screenSizeY = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-
-// const screenSizeX = mapSizeX;
-// const screenSizeY = mapSizeY;
 
 const shipProperties = {
    // start coordinates
@@ -79,8 +79,7 @@ const create = (() => {
     asteroids: [[630, 550], [674, 686], [690, 770], [769, 510], [835, 660], [535, 730], [1005, 619], [999, 675], [885, 835], [456, 547], [346, 634], [451, 289], [346, 634], [366, 434], [833, 387], [705, 207], [960, 273], [702, 994], [569, 938], [409, 867], [451, 1082], [1185, 882], [1272, 846], [1418, 871], [1588, 895], [451, 289], [346, 634], [366, 434]],
     hangerTiles: [[0, 0], [50, 0], [100, 0], [450, 0], [500, 0], [550, 0],
     [0, 50], [0, 100], [0, 150], [0, 200], [0, 250], [0, 300], [0, 350],
-    [550, 50], [550, 50], [550, 50], [550, 100], [550, 150], [550, 200], [550, 250], [550, 300], [550, 350],
-    [50, 350], [100, 350], [150, 350], [200, 350], [250, 350], [300, 350], [350, 350], [400, 350], [450, 350], [500, 350]]
+    [550, 50], [550, 50], [550, 50], [550, 100], [550, 150], [550, 200], [550, 250], [550, 300], [550, 350], [50, 350], [100, 350], [150, 350], [200, 350], [250, 350], [300, 350], [350, 350], [400, 350], [450, 350], [500, 350]]
   };
 
   game.add.tileSprite(0, 0, 1920, 1920, 'deepSpace');
@@ -94,9 +93,6 @@ const create = (() => {
   ship.anchor.set(0.5, 0.5);
   game.physics.arcade.enable(ship);
   ship.body.collideWorldBounds = true;
-
-  // create pointer
-  // pointer = game.add.sprite(755, 1270, 'pointer');
 
   const offsetX = (mapSizeX / 2) - 300;
   const offsetY = mapSizeY - 600;
@@ -142,7 +138,7 @@ const update = (() => {
   if (pauseLabel.text) {
     pauseLabel.kill();
   }
-  pauseLabel = game.add.text(0, 0, "\u23F8", { font: '24px Arial', fill: 'white' });
+  pauseLabel = game.add.text(0, 0, '\u23F8', { font: '24px Arial', fill: 'white' });
   pauseLabel.inputEnabled = true;
   pauseLabel.fixedToCamera = true;
   pauseLabel.events.onInputUp.add(() => {
@@ -151,9 +147,7 @@ const update = (() => {
     pauseLabel.kill();
     timeText.kill();
     pauseTime = Date.now() - startTime;
-    // pauseLabel = game.add.text(game.camera.x, game.camera.y, 'Play', { font: '24px Arial', fill: 'red' });
   });
-
 
   const unpause = (() => {
     if (game.paused) {
@@ -169,7 +163,6 @@ const update = (() => {
   game.input.onDown.add(unpause, self);
 
   // time counter text
-  // time = game.time.totalElapsedSeconds().toFixed(1)
   if (timeText.text) {
     timeText.kill();
   }
@@ -177,9 +170,10 @@ const update = (() => {
   if (gameStarted) {
     time = (((Date.now() - startTime) - totalTimePaused) / 1000).toFixed(2);
 
-    timeText = game.add.text( screenSizeX - 180, 0, `Time: ${time}`, { fontSize: '32px', fill: 'white' });
+    timeText = game.add.text(screenSizeX - 180, 0, `Time: ${time}`, { fontSize: '32px', fill: 'white' });
     timeText.fixedToCamera = true;
   }
+
   // add collision physics
   if (game.physics.arcade.collide(ship, asteroidsGroup)) {
     explosion = game.add.sprite(ship.body.x, ship.body.y, 'kaboom');
@@ -191,7 +185,8 @@ const update = (() => {
 
     setTimeout(restart, 600);
 
-    startTime = Date.now(); //reset time
+    // reset time
+    startTime = Date.now();
     gameStarted = false;
   }
 
@@ -204,11 +199,8 @@ const update = (() => {
 
   if (game.physics.arcade.overlap(ship, startingGate)) {
     gameStarted = true;
-    console.log('hit starting gate');
     if (spacemanAcquired === true) {
-      console.log('victory ' + time);
       // stop game
-      finishTime = time;
       gameStarted = false;
       game.paused = true;
       $('#endModal').css('display', 'block');

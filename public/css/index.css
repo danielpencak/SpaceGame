@@ -3,82 +3,34 @@
 }
 body {
   overflow: hidden;
-/*height: 100vh;
-width: 100vw;*/
-/*display: inline-block;*/
+}
+
+ul {
+  height: 64px;
 }
 
 main {
   height: 100vh;
   width: 100vw;
-  /*background-color: blue;*/
   background-image: url("../assets/screenShotBackground.png");
   background-size: cover;
   display: flex;
   justify-content: center;
-  /*align-items: center;*/
 }
+
 .modal-content {
   background-color: #6B6B6B;
   color: white;
-}
-
-#usernameLI, #passwordLI {
-  border: 5px solid black;
-  height: 100%;
-  margin: 0;
-  padding: 5px;
-  color: white;
-  background-color: #6B6B6B;
-  padding: 0;
-}
-
-/*#usernameLI {
-  height: 100%;
-  margin: 5px;
-  padding: 5px;
-  background-color: white;
-  padding: 0;
-}*/
-
-#passwordSU, #usernameSU, #passwordConfirm {
-  padding: 0;
-  margin: 0 !important;
-  border-bottom: 1px solid white;
-}
-
-#header {
-  /*display: flex;*/
-  padding-left: 10px;
-  padding-right: 10px;
-  background-color: black;
-}
-
-/*#first_name {
-  border-bottom: 1px solid blue;
-}*/
-
-#signUpModal {
-  border: 5px solid black;
-}
-
-.input-field {
-  /*background-color: darkgrey;*/
-  /*border-bottom: 1px solid blue;*/
-}
-/*#small {
-  padding: 0;
-  height: 30px;
-}*/
-
-ul {
-  height: 64px;
 }
 
 .play {
   font-size: 80px;
   color: white;
   margin-top: 220px;
+}
+
+.play:hover {
+  color: orangered;
 }
 
 .title {
@@ -96,21 +48,21 @@ ul {
 }
 
 ::-webkit-input-placeholder {
-    color: white;
-    font-size: 15px;
-    opacity: 1 !important; /* for older chrome versions. may no longer apply. */
+  color: white;
+  font-size: 15px;
+  opacity: 1 !important; /* for older chrome versions. may no longer apply. */
 }
 
 :-moz-placeholder { /* Firefox 18- */
-    color: white;
-    font-size: 15px;
-    opacity: 1 !important;
+  color: white;
+  font-size: 15px;
+  opacity: 1 !important;
 }
 
 ::-moz-placeholder {  /* Firefox 19+ */
-    color: white;
-    font-size: 15px;
-    opacity: 1 !important;
+  color: white;
+  font-size: 15px;
+  opacity: 1 !important;
 }
 
 :-ms-input-placeholder {
@@ -120,6 +72,32 @@ ul {
 
 .leaderboards {
   margin-right: 190px;
+}
+
+#usernameLI, #passwordLI {
+  border: 5px solid black;
+  height: 100%;
+  margin: 0;
+  padding: 5px;
+  color: white;
+  background-color: #6B6B6B;
+  padding: 0;
+}
+
+#passwordSU, #usernameSU, #passwordConfirm {
+  padding: 0;
+  margin: 0 !important;
+  border-bottom: 1px solid white;
+}
+
+#header {
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: black;
+}
+
+#signUpModal {
+  border: 5px solid black;
 }
 
 #signUp {

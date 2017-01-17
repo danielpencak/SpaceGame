@@ -1,36 +1,46 @@
 <!doctype html>
 <html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>hello phaser!</title>
-        <link rel="stylesheet" href="css/materialize.css">
-        <link type="text/css" rel="stylesheet" href="/css/game.css"/>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <script defer src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
-        <script defer src='js/materialize.js'></script>
-        <script defer src="js/phaser/phaser.min.js"></script>
-        <script defer src="js/game.js"></script>
-    </head>
-    <body>
-      <!-- Modal Structure -->
-      <div id="pauseModal" class="modal">
-        <div class="modal-content center-align">
-          <h4>Game Paused</h4>
-          <a href="index.html">Main Menu</a><br>
-          <a href="leaderboards.html">Leaderboards</a><br>
-          <a id="playButton" class=" modal-action modal-close btn-flat">Resume</a>
-        </div>
-      </div>
+    <title>Space Race!</title>
 
-      <div id="endModal" class="modal">
-        <div class="modal-content center-align">
-          <h4>Objective Complete!</h4>
-          <h4 id="finishTime">Time</h4>
-          <a href="index.html">Main Menu</a><br>
-          <a href="leaderboards.html">Leaderboards</a><br>
-          <a href="game.html" class=" modal-action modal-close btn-flat">Play Again</a>
-        </div>
+    <link href="https://fonts.googleapis.com/css?family=Audiowide" rel="stylesheet">
+    <link rel="stylesheet" href="css/materialize.css">
+    <link type="text/css" rel="stylesheet" href="css/game.css"/>
+
+    <script defer src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    <script defer src="js/materialize.js"></script>
+    <script defer src="js/phaser/phaser.min.js"></script>
+    <script defer src="js/game.js"></script>
+  </head>
+
+  <body>
+    <div id="pauseModal" class="modal">
+      <div class="modal-content center-align">
+        <h4>Game Paused</h4>
+
+        <a id="playButton" class="btn">Resume</a><br>
+
+        <a href="index.html" class="btn">Main Menu</a><br>
+
+        <a href="leaderboards.html" class="btn">Leaderboards</a>
       </div>
-      <!-- <canvas id="gamecontainer"></canvas> -->
-    </body>
+    </div>
+
+    <div id="endModal" class="modal">
+      <div class="modal-content center-align">
+        <h4>Objective Complete!</h4>
+
+        <h4 id="finishTime">Time</h4>
+
+        <a href="game.html" class="btn">Play Again</a><br>
+
+        <a href="index.html" class="btn">Main Menu</a><br>
+
+        <a href="leaderboards.html" class="btn">Leaderboards</a>
+      </div>
+    </div>
+  </body>
 </html>

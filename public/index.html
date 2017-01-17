@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Space Race!</title>
 
     <link href="https://fonts.googleapis.com/css?family=Audiowide" rel="stylesheet">
@@ -11,7 +12,6 @@
     <link type="text/css" rel="stylesheet" href="css/index.css"/>
 
     <script defer src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
-    <!-- <script defer src="js/jquery.js"></script> -->
     <script defer src="js/materialize.js"></script>
     <script defer src="js/index.js"></script>
   </head>
@@ -20,50 +20,36 @@
     <header>
       <nav id="header">
         <div class="nav-wrapper">
-          <a href="#" class="brand-logo title">Space Race</a>
+          <a class="brand-logo title">Space Race</a>
+
           <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li><a href="leaderboards.html"><button class="btn leaderboards"> Leaderboards</button></a></li>
+            <li>
+              <a href="leaderboards.html">
+                <button class="btn leaderboards">Leaderboards</button>
+              </a>
+            </li>
 
             <li>
               <form>
-                <!-- <div class="row"> -->
-                  <!-- <div class="input-field col s12">
-                    <input id="user_name2" type="text" class="validate">
-                    <label class="active" for="user_name2">User Name</label>
-                  </div> -->
-                  <div class="input-field">
-                    <input placeholder="Username" id="usernameLI" type="text" class="validate">
-                    <!-- <label for="first_name">First Name</label> -->
-                  </div>
-                <!-- </div> -->
-              </form>
-            </li>
-            <li>
-              <form>
-                <!-- <div class="row"> -->
-                  <div class="input-field">
-                    <input placeholder="Password" id="passwordLI" type="text" class="validate">
-                    <!-- <label for="first_name">First Name</label> -->
-                  </div>
-                <!-- </div> -->
-              </form>
-            </li>
-            <li><button class="btn">Login</button></li>
-            <li>
-              <!-- <div class="col s3 center-align">
-                <button data-target="modal1" class="btn grey darken-2 modal-trigger">Sign Up</button>
-              </div>
-
-              <div id="modal1" class="modal">
-                <div class="modal-content">
-                  <h3>Sign up</h3>
+                <div class="input-field">
+                  <input placeholder="Username" id="usernameLI" type="text" class="validate">
                 </div>
-              </div> -->
-              <!-- Modal Trigger -->
-              <!-- <a class="modal-trigger waves-effect waves-light btn" href=".modal">Sign Up</a> -->
-              <button data-target="signUpModal" id="signUp"class="btn">Sign Up</button>
+              </form>
+            </li>
 
-              <!-- Modal Structure -->
+            <li>
+              <form>
+                <div class="input-field">
+                  <input placeholder="Password" id="passwordLI" type="text" class="validate">
+                </div>
+              </form>
+            </li>
+
+            <li><button class="btn">Login</button></li>
+
+            <li>
+              <button data-target="signUpModal" id="signUp" class="btn">Sign Up</button>
+
               <div id="signUpModal" class="modal modal-fixed-footer">
                 <div class="modal-content">
                   <h4>Sign Up</h4>
@@ -73,21 +59,21 @@
                       <div class="usernameSU input-field col s12">
                         <input placeholder="Username" id="usernameSU" type="text" class="validate">
                       </div>
+
                       <div class="passwordSU input-field col s12">
                         <input placeholder="Password" id="passwordSU" type="text" class="validate">
-
                       </div>
+
                       <div class="passwordSU input-field col s12">
                         <input placeholder="Confirm Password" id="passwordConfirm" type="text" class="validate">
-
                       </div>
                     </div>
                   </form>
                 </div>
 
                 <div class="modal-footer">
-                  <a href="#!" class="modal-action modal-close waves-effect btn-flat">Close</a>
-                  <a href="#!" class="modal-action modal-close waves-effect btn-flat">Submit</a>
+                  <a class="modal-action modal-close waves-effect btn-flat">Close</a>
+                  <a class="modal-action modal-close waves-effect btn-flat">Submit</a>
                 </div>
               </div>
             </li>
@@ -95,6 +81,7 @@
         </div>
       </nav>
     </header>
+
     <main>
       <a href="game.html"><i class="material-icons play">play_circle_filled</i></a>
     </main>
