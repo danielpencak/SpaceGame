@@ -41,7 +41,7 @@ main {
 
 .btn {
   margin-right: 5px;
-  margin-left: 15px;
+  margin-left: 10px;
   background-color: #483b36;
 }
 
@@ -102,6 +102,7 @@ h4 {
   color: white;
   background-color: #6B6B6B;
   padding: 0;
+  width: 150px;
 }
 
 #passwordSU, #usernameSU, #passwordConfirm {
