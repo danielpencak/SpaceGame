@@ -28,9 +28,13 @@ ul {
   background-color: orange;
 }
 
-.modal-content {
+#signUpModal {
   background-color: #6B6B6B;
   color: white;
+}
+.modal {
+  border: 5px solid black;
+
 }
 
 .play {
@@ -93,14 +97,39 @@ ul {
   padding: 0;
 }
 
-#signUpModal {
-  border: 5px solid black;
-}
-
 #signUp {
   background-color: orangered;
 }
 
 #signUp:hover {
   background-color: orange;
+}
+
+th {
+  width: 24%;
+}
+
+#leaderboardsModalContent {
+  background-color: darkgrey;
+  overflow: scroll;
+  padding: 20px;
+}
+
+.leaderboardsTitle {
+  font-family: 'Audiowide', cursive;
+  margin: 0 auto;
+}
+
+#leaderboardsModal {
+    color: black !important;
+    position: fixed;
+    right: 3%;
+    left: 3%;
+    bottom: 0;
+    width: auto;
+    margin-top: 30px;
+}
+
+.opaque {
+  opacity: .2;
 }
