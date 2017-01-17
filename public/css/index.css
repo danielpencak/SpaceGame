@@ -49,6 +49,8 @@ main {
 
 #header {
   /*display: flex;*/
+  padding-left: 10px;
+  padding-right: 10px;
   background-color: black;
 }
 
@@ -117,7 +119,7 @@ ul {
 }
 
 .leaderboards {
-  margin-right: 200px;
+  margin-right: 190px;
 }
 
 #signUp {
