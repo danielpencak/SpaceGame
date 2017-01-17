@@ -2,26 +2,53 @@
   box-sizing: border-box;
 }
 
+body {
+  overflow: hidden;
+}
+
+h4 {
+  overflow: hidden;
+}
+
+main {
+  background-image: url("../assets/screenShotBackground.png");
+  background-size: cover;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  width: 100vw;
+}
+
 th {
   padding-top: 90px;
   width: 24%;
-}
-
-body {
-  overflow: hidden;
 }
 
 ul {
   height: 64px;
 }
 
-main {
-  height: 100vh;
-  width: 100vw;
-  background-image: url("../assets/screenShotBackground.png");
-  background-size: cover;
-  display: flex;
-  justify-content: center;
+.btn {
+  background-color: #483b36;
+  margin-left: 10px;
+  margin-right: 5px;
+}
+
+.btn:hover {
+  background-color: orange;
+}
+
+.container {
+  background-color: darkgrey;
+  margin-top: 30px;
+  overflow: scroll;
+  padding: 20px;
+}
+
+.leaderboardsTitle {
+  font-family: 'Audiowide', cursive;
+  margin: 0 auto;
+  position: fixed;
 }
 
 .modal-content {
@@ -29,24 +56,18 @@ main {
   color: white;
 }
 
+.opaque{
+  opacity: .2;
+}
+
 .play {
-  font-size: 80px;
   color: white;
+  font-size: 80px;
   margin-top: 220px;
 }
 
 .title {
   font-family: 'Audiowide', cursive;
-}
-
-.btn {
-  margin-right: 5px;
-  margin-left: 10px;
-  background-color: #483b36;
-}
-
-.btn:hover {
-  background-color: orange;
 }
 
 ::-webkit-input-placeholder {
@@ -68,57 +89,30 @@ main {
 }
 
 :-ms-input-placeholder {
-  font-size: 15px;
   color: white;
+  font-size: 15px;
 }
 
-.container {
-  background-color: darkgrey;
-  padding: 20px;
-  overflow: scroll;
-  margin-top: 30px;
-  /*margin-bottom: 30px;*/
+#header {
+  background-color: black;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
-h4 {
-  overflow: hidden;
-}
-
-.leaderboardsTitle {
-  font-family: 'Audiowide', cursive;
-  margin: 0 auto;
-  position: fixed;
-  /*font-size: 120px;*/
-}
-
-.opaque{
-  opacity: .2;
-}
 #usernameLI, #passwordLI {
+  background-color: #6B6B6B;
   border: 5px solid black;
+  color: white;
   height: 100%;
   margin: 0;
   padding: 5px;
-  color: white;
-  background-color: #6B6B6B;
-  padding: 0;
   width: 150px;
 }
 
 #passwordSU, #usernameSU, #passwordConfirm {
-  padding: 0;
-  margin: 0 !important;
   border-bottom: 1px solid white;
-}
-
-#header {
-  padding-left: 10px;
-  padding-right: 10px;
-  background-color: black;
-}
-
-#signUpModal {
-  border: 5px solid black;
+  margin: 0 !important;
+  padding: 0;
 }
 
 #signUp {
@@ -127,4 +121,8 @@ h4 {
 
 #signUp:hover {
   background-color: orange;
+}
+
+#signUpModal {
+  border: 5px solid black;
 }

@@ -1,24 +1,23 @@
-.modal {
-  starting_top: 40% !important;
-  width: 100%;
-  color: white;
-  background-color: rgba(0, 0, 0, 0.7);
-}
-
-#endModal {
-  background-color: black;
-}
-
 h4 {
   font-family: 'Audiowide', cursive;
 }
 
 .btn {
+  background-color: orangered;
   margin-bottom: 10px;
   width: 160px;
-  background-color: orangered;
 }
 
 .btn:hover {
   background-color: orange;
+}
+
+.modal {
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  width: 100%;
+}
+
+#endModal {
+  background-color: black;
 }
