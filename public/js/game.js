@@ -38,8 +38,9 @@ let finishTime = 0;
 const mapSizeX = 1920;
 const mapSizeY = 1920;
 
-const screenSizeX = 1000;
-const screenSizeY = 700;
+// set canvas width to window resolution
+const screenSizeX = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+const screenSizeY = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
 
 // const screenSizeX = mapSizeX;
 // const screenSizeY = mapSizeY;
@@ -141,9 +142,9 @@ const update = (() => {
   if (pauseLabel.text) {
     pauseLabel.kill();
   }
-  pauseLabel = game.add.text(game.camera.x, game.camera.y, 'Pause', { font: '24px Arial', fill: 'red' });
+  pauseLabel = game.add.text(0, 0, "\u23F8", { font: '24px Arial', fill: 'white' });
   pauseLabel.inputEnabled = true;
-
+  pauseLabel.fixedToCamera = true;
   pauseLabel.events.onInputUp.add(() => {
     game.paused = true;
     $('#pauseModal').css('display', 'block');
@@ -176,7 +177,8 @@ const update = (() => {
   if (gameStarted) {
     time = (((Date.now() - startTime) - totalTimePaused) / 1000).toFixed(2);
 
-    timeText = game.add.text(game.camera.x + screenSizeX - 200, game.camera.y, `Time: ${time}`, { fontSize: '32px', fill: 'red' });
+    timeText = game.add.text( screenSizeX - 180, 0, `Time: ${time}`, { fontSize: '32px', fill: 'white' });
+    timeText.fixedToCamera = true;
   }
   // add collision physics
   if (game.physics.arcade.collide(ship, asteroidsGroup)) {
