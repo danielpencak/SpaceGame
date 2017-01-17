@@ -3,6 +3,7 @@
 }
 
 th {
+  padding-top: 90px;
   width: 24%;
 }
 
@@ -75,6 +76,8 @@ main {
   background-color: darkgrey;
   padding: 20px;
   overflow: scroll;
+  margin-top: 30px;
+  /*margin-bottom: 30px;*/
 }
 
 h4 {
@@ -83,9 +86,14 @@ h4 {
 
 .leaderboardsTitle {
   font-family: 'Audiowide', cursive;
-  margin: 0;
+  margin: 0 auto;
+  position: fixed;
+  /*font-size: 120px;*/
 }
 
+.opaque{
+  opacity: .2;
+}
 #usernameLI, #passwordLI {
   border: 5px solid black;
   height: 100%;
