@@ -40,6 +40,7 @@ ul {
 
 .container {
   background-color: darkgrey;
+  border: 5px solid black;
   margin-top: 30px;
   overflow: scroll;
   padding: 20px;
