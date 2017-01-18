@@ -105,7 +105,6 @@ ul {
   background-color: orange;
 }
 
-<<<<<<< HEAD
 th {
   width: 24%;
 }
@@ -133,8 +132,7 @@ th {
 
 .opaque {
   opacity: .2;
-=======
+
 .username {
   margin-top: 5px;
->>>>>>> Close #22 Add ability to register user
 }
