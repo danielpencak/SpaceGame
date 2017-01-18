@@ -230,16 +230,16 @@
               </form>
             </li>
 
-            <li><button class="btn">Login</button></li>
+            <li id="headerListLeft" class="valign-wrapper"><button class="btn" id="loginButton">Login</button></li>
 
-            <li>
+            <li id="headerList">
               <button data-target="signUpModal" id="signUp" class="btn">Sign Up</button>
 
               <div id="signUpModal" class="modal modal-fixed-footer">
                 <div class="modal-content">
                   <h4>Sign Up</h4>
 
-                  <form>
+                  <form id="signUpForm">
                     <div class="row">
                       <div class="usernameSU input-field col s12">
                         <input placeholder="Username" id="usernameSU" type="text" class="validate">
@@ -258,7 +258,7 @@
 
                 <div class="modal-footer">
                   <a class="modal-action modal-close waves-effect btn-flat">Close</a>
-                  <a class="modal-action waves-effect btn-flat">Submit</a>
+                  <a class="modal-action waves-effect btn-flat" id="signUpButton">Submit</a>
                 </div>
               </div>
             </li>
