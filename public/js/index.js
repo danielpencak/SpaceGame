@@ -7,6 +7,7 @@
 
   $(document).ready(() => {
     $('.modal').modal();
+    $('#leaderboardsModal').modal({ dismissible: true });
     const loginCheckOptions = {
       contentType: 'application/json',
       type: 'GET',
@@ -106,6 +107,10 @@
       return Materialize.toast('Username must not be blank', 3000);
     }
 
+    if (username.length > 15 || username.length < 3) {
+      return Materialize.toast('Username cannot be more than 15 characters or less than 3 characters', 3000);
+    }
+
     if (!password || password.length < 8) {
       return Materialize.toast(
         'Password must be at least 8 characters long', 3000);
@@ -124,7 +129,10 @@
     };
 
     $.ajax(options)
-      .done(() => {
+      .done((body) => {
+        if (body === false) {
+          return Materialize.toast('Username already exits', 3000);
+        }
         window.location.href = '/index.html';
       })
       .fail(($xhr) => {
@@ -156,11 +164,20 @@
 
     $.ajax(options)
       .done((body) => {
+        if (body === false) {
+          return Materialize.toast('Bad username or password', 3000);
+        }
         window.localStorage.setItem('username', body.username);
         window.location.href = '/index.html';
       })
       .fail(($xhr) => {
         Materialize.toast($xhr.responseText, 3000);
       });
+  });
+
+  $(document).ready(() => {
+    if (window.location.href.indexOf('#leaderboardsModal') !== -1) {
+      $('#leaderboardsModal').css('display', 'block');
+    }
   });
 })();

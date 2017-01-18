@@ -1,12 +1,11 @@
 /* eslint-disable no-extra-parens */
 /* eslint-disable max-len */
-
+/* eslint-disable camelcase */
 'use strict';
 
 const express = require('express');
 const knex = require('../knex');
 const { camelizeKeys } = require('humps');
-const boom = require('boom');
 const jwt = require('jsonwebtoken');
 
 // eslint-disable-next-line new-cap
@@ -18,7 +17,6 @@ const authorize = ((req, res, next) => {
       return res.send(false);
     }
 
-    // res.send(true);
     next();
   });
 });
@@ -38,7 +36,7 @@ router.post('/games', authorize, (req, res, next) => {
       return knex('games').insert({
         player_id: playerId,
         level_id: levelId,
-        time: time
+        time
       }, '*');
     })
     .then((newRow) => {

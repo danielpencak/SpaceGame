@@ -31,7 +31,8 @@ let borderLineLeft = {};
 let intersectPoint = {};
 
 // game state
-const levelId = 1; // localStorage.getItem(currentLevel)
+// localStorage.getItem(currentLevel)
+const levelId = 1;
 let spacemanAcquired = false;
 let pauseTime = 0;
 let totalTimePaused = 0;

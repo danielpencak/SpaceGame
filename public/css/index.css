@@ -34,7 +34,6 @@ ul {
 }
 .modal {
   border: 5px solid black;
-
 }
 
 .play {
@@ -128,6 +127,7 @@ th {
     bottom: 0;
     width: auto;
     margin-top: 30px;
+    max-height: 500px;
 }
 
 #userLabel {
@@ -136,8 +136,14 @@ th {
 }
 
 #loginButton {
+  background-color: #483b36;
   margin-top: 14px;
 }
+
+#loginButton:hover {
+  background-color: orange;
+}
+
 .opaque {
   opacity: .2;
 

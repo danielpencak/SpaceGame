@@ -1,7 +1,6 @@
 'use strict';
 
 const bcrypt = require('bcrypt-as-promised');
-const boom = require('boom');
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const knex = require('../knex');
@@ -13,20 +12,12 @@ const router = express.Router();
 router.post('/players', (req, res, next) => {
   const { username, password } = req.body;
 
-  if (!username || !username.trim()) {
-    return next(boom.create(400, 'Username must not be blank'));
-  }
-
-  if (!password || password.length < 8) {
-    return next(boom.create(400, 'Password must be at least characters long'));
-  }
-
   knex('players')
     .where('username', username)
     .first()
     .then((player) => {
       if (player) {
-        throw boom.create(400, 'Username already exists');
+        return res.send(false);
       }
 
       return bcrypt.hash(password, 12);
