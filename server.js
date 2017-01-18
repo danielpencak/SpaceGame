@@ -37,7 +37,9 @@ app.use(express.static(path.join('public')));
 
 const players = require('./routes/players');
 const token = require('./routes/token');
+const games = require('./routes/games');
 
+app.use(games);
 app.use(players);
 app.use(token);
 

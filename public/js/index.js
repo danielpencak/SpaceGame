@@ -1,58 +1,59 @@
-
-$(document).ready(function(){
-  $('.modal').modal();
-});
-$('.modal-content').scroll(function (event) {
-    var scroll = $('.modal-content').scrollTop();
-    console.log(scroll);
-    if (scroll > 0) {
-      $('.leaderboardsTitle').addClass('opaque');
-    }
-    else {
-      $('.leaderboardsTitle').removeClass('opaque');
-    }
-});
-
 (function() {
   'use strict';
 
   $(document).ready(function() {
     $('.modal').modal();
-    // console.log(document.cookies);
-    const options1 = {
+    const options = {
       contentType: 'application/json',
-      // data: JSON.stringify(document.cookie),
-      // dataType: 'json',
       type: 'GET',
       url: '/token'
     };
 
-    $.ajax(options1)
+    $.ajax(options)
       .done((loggedIn) => {
-        console.log('done');
-        console.log(loggedIn);
-        // window.location.href = '/index.html';
-        // change header
         if (loggedIn) {
-          console.log('loggedIn');
+          const username = localStorage.getItem('username');
+          console.log(`logged in as ${username}`);
           $('#loginButton').addClass('hide');
           $('#usernameLI').addClass('hide');
           $('#passwordLI').addClass('hide');
           $('#signUp').addClass('hide');
 
           const $logOutBTN = $('<button>').addClass('btn').attr('id', 'logout');
+
           $logOutBTN.text('Log Out');
 
           const $listRight = $('#headerList');
           const $listLeft = $('#headerListLeft');
-          const $userLabel = $('#userLabel');
+          const $usernameLabel = $('<h3>').text(username).attr('id', 'userLabel');
 
+          $listLeft.append($usernameLabel);
           $listRight.append($logOutBTN);
-          // $userLabel.removeClass('hide');
+          $('#logout').on('click', (event) => {
+            console.log('clicked logout');
+            // event.preventDefault();
+
+            const options = {
+              contentType: 'application/json',
+              // data: JSON.stringify({ username, password }),
+              // dataType: 'json',
+              type: 'DELETE',
+              url: '/token'
+            };
+
+            $.ajax(options)
+              .done(() => {
+                console.log('logged out Done');
+                window.location.href = '/index.html';
+              })
+              .fail(($xhr) => {
+                Materialize.toast($xhr.responseText, 3000);
+              });
+          });
         }
-        else {
-          $userLabel.addClass('hide')
-        }
+        // else {
+        //   $userLabel.addClass('hide')
+        // }
       })
       .fail(($xhr) => {
         Materialize.toast($xhr.responseText, 3000);
@@ -127,34 +128,9 @@ $('.modal-content').scroll(function (event) {
     };
 
     $.ajax(options)
-      .done(() => {
+      .done((body) => {
         console.log('logged In Done');
-        const $listLeft = $('#headerListLeft');
-        const $usernameLabel = $('<h3>').text(req.body.username).attr('id', 'userLabel');
-
-        $listLeft.append($usernameLabel);
-        window.location.href = '/index.html';
-      })
-      .fail(($xhr) => {
-        Materialize.toast($xhr.responseText, 3000);
-      });
-  });
-
-  $('#logout').on('click', (event) => {
-    console.log('clicked logout');
-    event.preventDefault();
-
-    const options2 = {
-      contentType: 'application/json',
-      // data: JSON.stringify({ username, password }),
-      // dataType: 'json',
-      type: 'DELETE',
-      url: '/token'
-    };
-
-    $.ajax(options2)
-      .done(() => {
-        console.log('logged out Done');
+        window.localStorage.setItem('username', body.username);
         window.location.href = '/index.html';
       })
       .fail(($xhr) => {

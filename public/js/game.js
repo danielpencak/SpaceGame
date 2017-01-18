@@ -207,6 +207,8 @@ const update = (() => {
       $('#finishTime').text(`Time: ${time}`);
       pauseLabel.kill();
       timeText.kill();
+      const username = localStorage.getItem('username');
+      sendResults(time, username);
     }
     startTime = Date.now() - totalTimePaused;
   }
@@ -279,3 +281,24 @@ const render = (() => {
 });
 
 const game = new Phaser.Game(screenSizeX, screenSizeY, Phaser.CANVAS, 'canvas', { preload, create, update, render });
+
+const sendResults = ((time, username) => {
+  console.log(time, username);
+  time = time * 1000;
+  const options = {
+    contentType: 'application/json',
+    data: JSON.stringify({ username, time }),
+    dataType: 'json',
+    type: 'POST',
+    url: '/games'
+  };
+
+  $.ajax(options)
+    .done(() => {
+      console.log('Winner');
+    })
+    .fail(($xhr) => {
+      Materialize.toast($xhr.responseText, 3000);
+      console.log('fail');
+    });
+});

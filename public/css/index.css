@@ -130,6 +130,14 @@ th {
     margin-top: 30px;
 }
 
+#userLabel {
+  margin-top: 10px;
+  font-family: 'Audiowide', cursive;
+}
+
+#loginButton {
+  margin-top: 14px;
+}
 .opaque {
   opacity: .2;
 

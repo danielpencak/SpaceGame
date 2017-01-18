@@ -38,15 +38,15 @@ router.post('/players', (req, res, next) => {
     })
     .then((rows) => {
       const player = camelizeKeys(rows[0]);
-      // const claim = { playerId: player.id };
-      // const token = jwt.sign(claim, process.env.JWT_KEY, {
-      //   expiresIn: '7 days'
-      // });
-      //
-      // res.cookie('token', token, {
-      //   httpOnly: true,
-      //   secure: router.get('env') === 'production'
-      // });
+      const claim = { playerId: player.id };
+      const token = jwt.sign(claim, process.env.JWT_KEY, {
+        expiresIn: '7 days'
+      });
+
+      res.cookie('token', token, {
+        httpOnly: true,
+        secure: router.get('env') === 'production'
+      });
 
       delete player.hashedPassword;
 
