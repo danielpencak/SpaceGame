@@ -45,7 +45,7 @@ $('.modal-content').scroll(function (event) {
 
           const $listRight = $('#headerList');
           const $listLeft = $('#headerListLeft');
-          // const $userLabel = $('#userLabel');
+          const $userLabel = $('#userLabel');
 
           $listRight.append($logOutBTN);
           // $userLabel.removeClass('hide');
