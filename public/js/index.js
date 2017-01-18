@@ -32,7 +32,7 @@
           $('#logout').on('click', (event) => {
             console.log('clicked logout');
             // event.preventDefault();
-
+            localStorage.clear();
             const options = {
               contentType: 'application/json',
               // data: JSON.stringify({ username, password }),
@@ -59,6 +59,62 @@
         Materialize.toast($xhr.responseText, 3000);
         console.log('fail');
       });
+
+      const options2 = {
+        contentType: 'application/json',
+        type: 'GET',
+        url: '/leaderboards'
+      };
+
+      $.ajax(options2)
+        .done((rows) => {
+          // const leaderboardRows = JSON.parse(rows);
+          const leaderboardRows = rows;
+          const $tableBody = $('#leaderboardsBody');
+          console.log(leaderboardRows);
+          for (let i = 1; i <= leaderboardRows.length; i++) {
+            // make row
+            console.log('Loop');
+            console.log(leaderboardRows[i - 1]);
+            const $tr = $('<tr>');
+            const $td = $('<td>');
+            $td.text(i);
+            $tr.append($td);
+
+            const { time, username, levelId, difficulty } = leaderboardRows[i - 1];
+            console.log('time', time);
+            console.log('username', username);
+            console.log('levelId', levelId);
+            console.log('difficulty', difficulty);
+            const $tdTime = $('<td>');
+            const $tdUsername = $('<td>');
+            const $tdLevelId = $('<td>');
+            const $tdDifficulty = $('<td>');
+
+            $tdTime.text(time / 1000);
+            $tdUsername.text(username);
+            $tdLevelId.text(levelId);
+            $tdDifficulty.text(difficulty);
+
+            $tr.append($tdTime);
+            $tr.append($tdUsername);
+            $tr.append($tdLevelId);
+            $tr.append($tdDifficulty);
+
+            $tableBody.append($tr);
+
+            // for (const key in leaderboardRows[i]) {
+            //   // create td for each key/value pair
+            //   // append to row
+            //   //
+            //   const $td = $('<td>');
+            //   $td.text(leaderboardRows[i].key);
+            //   $tr.append($td);
+            // }
+            // append to table
+            // $tableBody.append($tr);
+          }
+        })
   });
 
   $('#signUpButton').on('click', (event) => {

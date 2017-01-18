@@ -38,10 +38,12 @@ app.use(express.static(path.join('public')));
 const players = require('./routes/players');
 const token = require('./routes/token');
 const games = require('./routes/games');
+const leaderboards = require('./routes/leaderboards');
 
 app.use(games);
 app.use(players);
 app.use(token);
+app.use(leaderboards);
 
 app.use((_req, res, _next) => {
   return res.sendStatus(404);

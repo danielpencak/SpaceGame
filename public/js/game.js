@@ -31,6 +31,7 @@ let borderLineLeft = {};
 let intersectPoint = {};
 
 // game state
+const levelId = 1; //localStorage.getItem(currentLevel)
 let spacemanAcquired = false;
 let pauseTime = 0;
 let totalTimePaused = 0;
@@ -208,7 +209,7 @@ const update = (() => {
       pauseLabel.kill();
       timeText.kill();
       const username = localStorage.getItem('username');
-      sendResults(time, username);
+      sendResults(time, username, levelId);
     }
     startTime = Date.now() - totalTimePaused;
   }
@@ -282,12 +283,15 @@ const render = (() => {
 
 const game = new Phaser.Game(screenSizeX, screenSizeY, Phaser.CANVAS, 'canvas', { preload, create, update, render });
 
-const sendResults = ((time, username) => {
-  console.log(time, username);
+const sendResults = ((time, username, levelId) => {
+  if (!username) {
+    return;
+  }
+  console.log(time, username, levelId);
   time = time * 1000;
   const options = {
     contentType: 'application/json',
-    data: JSON.stringify({ username, time }),
+    data: JSON.stringify({ username, time, levelId }),
     dataType: 'json',
     type: 'POST',
     url: '/games'

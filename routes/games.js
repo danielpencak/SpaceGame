@@ -11,19 +11,26 @@ const { camelizeKeys, decamelizeKeys } = require('humps');
 const router = express.Router();
 
 router.post('/games', (req, res, next) => {
-  const { username, time } = req.body;
+  const { username, time, levelId } = req.body;
+  console.log(levelId);
 
-  knex('games')
-    .innerJoin('players', 'players.id', 'games.player_id')
-    .innerJoin('levels', 'levels.id', 'games.level_id')
-    // .where('username', username)
-    // .where('players.username', username)
-    // .first()
-    .then((rows) => {
-      console.log(rows);
-      const row = camelizeKeys(rows[0]);
-      const { playerId } = row.id;
-      const { levelId } = row.levelId;
+  knex('players')
+    .where('username', username)
+    .first()
+    .then((row) => {
+      const playerId = row.id;
+      console.log(playerId);
+      return playerId;
+    })
+  // knex('games')
+  //   .innerJoin('players', 'players.id', 'games.player_id')
+  //   .innerJoin('levels', 'levels.id', 'games.level_id')
+  //   // .where('username', username)
+  //   // .where('players.username', username)
+  //   // .first()
+    .then((playerId) => {
+      // console.log(rows);
+      // const row = camelizeKeys(rows[0]);
       return knex('games').insert({
         player_id: playerId,
         level_id: levelId,
