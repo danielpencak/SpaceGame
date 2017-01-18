@@ -31,7 +31,7 @@ let borderLineLeft = {};
 let intersectPoint = {};
 
 // game state
-const levelId = 1; //localStorage.getItem(currentLevel)
+const levelId = 1; // localStorage.getItem(currentLevel)
 let spacemanAcquired = false;
 let pauseTime = 0;
 let totalTimePaused = 0;
@@ -209,7 +209,8 @@ const update = (() => {
       pauseLabel.kill();
       timeText.kill();
       const username = localStorage.getItem('username');
-      sendResults(time, username, levelId);
+
+      sendResults(username);
     }
     startTime = Date.now() - totalTimePaused;
   }
@@ -283,12 +284,11 @@ const render = (() => {
 
 const game = new Phaser.Game(screenSizeX, screenSizeY, Phaser.CANVAS, 'canvas', { preload, create, update, render });
 
-const sendResults = ((time, username, levelId) => {
+const sendResults = ((username) => {
   if (!username) {
     return;
   }
-  console.log(time, username, levelId);
-  time = time * 1000;
+  time *= 1000;
   const options = {
     contentType: 'application/json',
     data: JSON.stringify({ username, time, levelId }),
@@ -298,11 +298,14 @@ const sendResults = ((time, username, levelId) => {
   };
 
   $.ajax(options)
-    .done(() => {
-      console.log('Winner');
+    .done((body) => {
+      // ask
+      console.log(body);
+      if (body === false) {
+        Materialize.toast('Login to save your score', 3000);
+      }
     })
     .fail(($xhr) => {
       Materialize.toast($xhr.responseText, 3000);
-      console.log('fail');
     });
 });
