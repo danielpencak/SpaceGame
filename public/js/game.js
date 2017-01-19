@@ -191,17 +191,17 @@ const create = (() => {
 const update = (() => {
   // pause / play
 
-  // if (pauseLabel.text) {
-  //   pauseLabel.kill();
-  // }
+  if (pauseLabel.text) {
+    pauseLabel.kill();
+  }
   pauseLabel = game.add.text(0, 0, '\u23F8', { font: '24px Arial', fill: 'white' });
   pauseLabel.inputEnabled = true;
   pauseLabel.fixedToCamera = true;
   pauseLabel.events.onInputUp.add(() => {
     game.paused = true;
     $('#pauseModal').css('display', 'block');
-    // pauseLabel.kill();
-    // timeText.kill();
+    pauseLabel.kill();
+    timeText.kill();
     pauseTime = Date.now() - startTime;
   });
 
