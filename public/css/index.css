@@ -15,6 +15,10 @@ main {
   width: 100vw;
 }
 
+td {
+  padding-top: 0;
+  padding-bottom: 0;
+}
 ul {
   height: 64px;
 }
@@ -128,8 +132,8 @@ th {
     left: 3%;
     bottom: 0;
     width: auto;
-    margin-top: 30px;
-    max-height: 500px;
+    margin-top: 15px;
+    max-height: 800px;
 }
 
 #userLabel {
@@ -156,3 +160,19 @@ th {
 .levelSelector {
   height: 500px
 }
+
+/*#levelButtons > button {
+  background-color: #483b36 !important;
+}*/
+
+#level1Button {
+  background-color: #483b36;
+}
+
+/*#level1Button:hover {
+  background-color: orange;
+}*/
+
+/*#tableHead {
+  color: red;
+}*/

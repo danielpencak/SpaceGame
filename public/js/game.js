@@ -156,18 +156,10 @@ const create = (() => {
     }
   });
 
-  const addFloor = (() => {
-    for (const elem of gameObjects[levelId].floor) {
-      // const newObject = game.add.sprite(offsetX + elem[0], offsetY + elem[1], 'floor');
-      game.add.tileSprite(offsetX + 50, offsetY + 50, 500, 300, 'floor');
-
-      // newObject.moveDown();
-    }
-  });
+  game.add.tileSprite(offsetX + 50, offsetY + 50, 500, 300, 'floor');
 
   addAsteroids();
   addHangerTile();
-  addFloor();
 
   game.add.text(offsetX + 100, offsetY + 70, levelId.toUpperCase(), { font: '24px Arial', fill: 'black' });
 

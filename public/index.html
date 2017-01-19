@@ -29,14 +29,24 @@
               <div id="leaderboardsModal" class="modal">
                 <div id="leaderboardsModalContent" class="modal-content">
                   <h1 class="leaderboardsTitle">Leaderboards</h1>
-                  <table id="table" class="striped">
+                  <div id="levelButtons">
+                    <button id="allButton" class="btn levelButton">All levels</button>
+                    <button id="level1Button" class="btn levelButton">Level 1</button>
+                    <button id="level2Button" class="btn levelButton">Level 2</button>
+                    <button id="level3Button" class="btn levelButton">Level 3</button>
+                    <button id="level4Button" class="btn levelButton">Level 4</button>
+                    <button id="level5Button" class="btn levelButton">Level 5</button>
+                    <button id="level6Button" class="btn levelButton">Level 6</button>
+                  </div>
+                  <table id="table">
+                  <!-- <table id="table" class="striped"> -->
                     <thead>
                       <tr>
-                        <th data-field="id">Rank</th>
-                        <th data-field="id">Time (seconds)</th>
-                        <th data-field="name">Username</th>
-                        <th data-field="name">Level</th>
-                        <th data-field="name">Difficulty</th>
+                        <th id="tableHead" class="tableHead">Rank</th>
+                        <th class="tableHead">Time (seconds)</th>
+                        <th class="tableHead">Username</th>
+                        <th class="tableHead">Level</th>
+                        <th class="tableHead">Difficulty</th>
                       </tr>
                     </thead>
 

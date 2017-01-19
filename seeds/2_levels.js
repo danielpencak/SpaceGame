@@ -10,37 +10,37 @@ module.exports.seed = ((knex) => {
       return knex('levels').insert([{
         id: 1,
         level_name: 'too easy',
-        difficulty: 'easy',
+        difficulty: 'Easy',
         created_at: new Date('2016-06-29 14:26:16 UTC'),
         updated_at: new Date('2016-06-29 14:26:16 UTC')
       }, {
         id: 2,
         level_name: 'too easy',
-        difficulty: 'easy',
+        difficulty: 'Easy',
         created_at: new Date('2016-06-29 14:26:16 UTC'),
         updated_at: new Date('2016-06-29 14:26:16 UTC')
       }, {
         id: 3,
         level_name: 'too easy',
-        difficulty: 'medium',
+        difficulty: 'Medium',
         created_at: new Date('2016-06-29 14:26:16 UTC'),
         updated_at: new Date('2016-06-29 14:26:16 UTC')
       }, {
         id: 4,
         level_name: 'too easy',
-        difficulty: 'medium',
+        difficulty: 'Medium',
         created_at: new Date('2016-06-29 14:26:16 UTC'),
         updated_at: new Date('2016-06-29 14:26:16 UTC')
       }, {
         id: 5,
         level_name: 'too easy',
-        difficulty: 'hard',
+        difficulty: 'Hard',
         created_at: new Date('2016-06-29 14:26:16 UTC'),
         updated_at: new Date('2016-06-29 14:26:16 UTC')
       }, {
         id: 6,
         level_name: 'too easy',
-        difficulty: 'hard',
+        difficulty: 'Hard',
         created_at: new Date('2016-06-29 14:26:16 UTC'),
         updated_at: new Date('2016-06-29 14:26:16 UTC')
       }]);
