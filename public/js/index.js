@@ -1,6 +1,7 @@
 /* eslint-disable strict */
 /* eslint-disable no-undef */
 /* eslint-disable max-len */
+/* eslint-disable */
 
 (function() {
   'use strict';
@@ -16,11 +17,6 @@
 
     const updateHeader = () => {
       const username = localStorage.getItem('username');
-
-      $('#loginButton').addClass('hide');
-      $('#usernameLI').addClass('hide');
-      $('#passwordLI').addClass('hide');
-      $('#signUp').addClass('hide');
 
       const $logOutBTN = $('<button>').addClass('btn').attr('id', 'logout');
 
@@ -55,6 +51,11 @@
       .done((loggedIn) => {
         if (loggedIn) {
           updateHeader();
+        } else {
+          $('#loginButton').removeClass('hide');
+          $('#usernameLI').removeClass('hide');
+          $('#passwordLI').removeClass('hide');
+          $('#signUp').removeClass('hide');
         }
       })
       .fail(($xhr) => {

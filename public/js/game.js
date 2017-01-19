@@ -33,13 +33,15 @@ let intersectPoint = {};
 // game state
 
 const levelId = localStorage.getItem('currentLevel') || 'level01';
-console.log(levelId);
+const levelInt = levelId.slice(-2);
 let spacemanAcquired = false;
 let pauseTime = 0;
 let totalTimePaused = 0;
 let startTime = 0;
 let time = 0;
 let gameStarted = false;
+
+// console.log(levelId);
 
 const mapSizeX = 1920;
 const mapSizeY = 1920;
@@ -94,27 +96,32 @@ const create = (() => {
     asteroids: [[630, 550], [674, 686]],
     hangerTiles: [[0, 0], [50, 0], [100, 0], [450, 0], [500, 0], [550, 0],
     [0, 50], [0, 100], [0, 150], [0, 200], [0, 250], [0, 300], [0, 350],
-    [550, 50], [550, 50], [550, 50], [550, 100], [550, 150], [550, 200], [550, 250], [550, 300], [550, 350], [50, 350], [100, 350], [150, 350], [200, 350], [250, 350], [300, 350], [350, 350], [400, 350], [450, 350], [500, 350]]
+    [550, 50], [550, 50], [550, 50], [550, 100], [550, 150], [550, 200], [550, 250], [550, 300], [550, 350], [50, 350], [100, 350], [150, 350], [200, 350], [250, 350], [300, 350], [350, 350], [400, 350], [450, 350], [500, 350]],
+    floor: [[50, 50]]
   }, level03: {
     asteroids: [[630, 550]],
     hangerTiles: [[0, 0], [50, 0], [100, 0], [450, 0], [500, 0], [550, 0],
     [0, 50], [0, 100], [0, 150], [0, 200], [0, 250], [0, 300], [0, 350],
-    [550, 50], [550, 50], [550, 50], [550, 100], [550, 150], [550, 200], [550, 250], [550, 300], [550, 350], [50, 350], [100, 350], [150, 350], [200, 350], [250, 350], [300, 350], [350, 350], [400, 350], [450, 350], [500, 350]]
+    [550, 50], [550, 50], [550, 50], [550, 100], [550, 150], [550, 200], [550, 250], [550, 300], [550, 350], [50, 350], [100, 350], [150, 350], [200, 350], [250, 350], [300, 350], [350, 350], [400, 350], [450, 350], [500, 350]],
+    floor: [[50, 50]]
   }, level04: {
     asteroids: [[630, 550]],
     hangerTiles: [[0, 0], [50, 0], [100, 0], [450, 0], [500, 0], [550, 0],
     [0, 50], [0, 100], [0, 150], [0, 200], [0, 250], [0, 300], [0, 350],
-    [550, 50], [550, 50], [550, 50], [550, 100], [550, 150], [550, 200], [550, 250], [550, 300], [550, 350], [50, 350], [100, 350], [150, 350], [200, 350], [250, 350], [300, 350], [350, 350], [400, 350], [450, 350], [500, 350]]
+    [550, 50], [550, 50], [550, 50], [550, 100], [550, 150], [550, 200], [550, 250], [550, 300], [550, 350], [50, 350], [100, 350], [150, 350], [200, 350], [250, 350], [300, 350], [350, 350], [400, 350], [450, 350], [500, 350]],
+    floor: [[50, 50]]
   }, level05: {
     asteroids: [[630, 550]],
     hangerTiles: [[0, 0], [50, 0], [100, 0], [450, 0], [500, 0], [550, 0],
     [0, 50], [0, 100], [0, 150], [0, 200], [0, 250], [0, 300], [0, 350],
-    [550, 50], [550, 50], [550, 50], [550, 100], [550, 150], [550, 200], [550, 250], [550, 300], [550, 350], [50, 350], [100, 350], [150, 350], [200, 350], [250, 350], [300, 350], [350, 350], [400, 350], [450, 350], [500, 350]]
+    [550, 50], [550, 50], [550, 50], [550, 100], [550, 150], [550, 200], [550, 250], [550, 300], [550, 350], [50, 350], [100, 350], [150, 350], [200, 350], [250, 350], [300, 350], [350, 350], [400, 350], [450, 350], [500, 350]],
+    floor: [[50, 50]]
   }, level06: {
     asteroids: [[630, 550]],
     hangerTiles: [[0, 0], [50, 0], [100, 0], [450, 0], [500, 0], [550, 0],
     [0, 50], [0, 100], [0, 150], [0, 200], [0, 250], [0, 300], [0, 350],
-    [550, 50], [550, 50], [550, 50], [550, 100], [550, 150], [550, 200], [550, 250], [550, 300], [550, 350], [50, 350], [100, 350], [150, 350], [200, 350], [250, 350], [300, 350], [350, 350], [400, 350], [450, 350], [500, 350]]
+    [550, 50], [550, 50], [550, 50], [550, 100], [550, 150], [550, 200], [550, 250], [550, 300], [550, 350], [50, 350], [100, 350], [150, 350], [200, 350], [250, 350], [300, 350], [350, 350], [400, 350], [450, 350], [500, 350]],
+    floor: [[50, 50]]
   }};
 
   game.add.tileSprite(0, 0, 1920, 1920, 'deepSpace');
@@ -162,13 +169,15 @@ const create = (() => {
   addHangerTile();
   addFloor();
 
-  game.add.text(offsetX + 100, offsetY + 100, '<^> to move ship', { font: '24px Arial', fill: 'black' });
+  game.add.text(offsetX + 100, offsetY + 70, levelId.toUpperCase(), { font: '24px Arial', fill: 'black' });
 
-  game.add.text(offsetX + 100, offsetY + 170, 'avoid the mines', { font: '24px Arial', fill: 'black' });
+  game.add.text(offsetX + 100, offsetY + 120, '<^> To move the ship', { font: '24px Arial', fill: 'black' });
 
-  game.add.text(offsetX + 100, offsetY + 240, 'rescue the spaceman', { font: '24px Arial', fill: 'black' });
+  game.add.text(offsetX + 100, offsetY + 190, 'Avoid the mines', { font: '24px Arial', fill: 'black' });
 
-  game.add.text(offsetX + 100, offsetY + 270, 'and bring him back to the ship', { font: '24px Arial', fill: 'black' });
+  game.add.text(offsetX + 100, offsetY + 260, 'Rescue the spaceman', { font: '24px Arial', fill: 'black' });
+
+  game.add.text(offsetX + 100, offsetY + 290, 'and bring him back to the ship', { font: '24px Arial', fill: 'black' });
 
   ship = game.add.sprite(shipProperties.startX, shipProperties.startY, 'ship');
   ship.anchor.set(0.5, 0.5);
@@ -190,17 +199,17 @@ const create = (() => {
 const update = (() => {
   // pause / play
 
-  if (pauseLabel.text) {
-    pauseLabel.kill();
-  }
+  // if (pauseLabel.text) {
+  //   pauseLabel.kill();
+  // }
   pauseLabel = game.add.text(0, 0, '\u23F8', { font: '24px Arial', fill: 'white' });
   pauseLabel.inputEnabled = true;
   pauseLabel.fixedToCamera = true;
   pauseLabel.events.onInputUp.add(() => {
     game.paused = true;
     $('#pauseModal').css('display', 'block');
-    pauseLabel.kill();
-    timeText.kill();
+    // pauseLabel.kill();
+    // timeText.kill();
     pauseTime = Date.now() - startTime;
   });
 
@@ -251,6 +260,7 @@ const update = (() => {
     spaceman.kill();
     spacemanAcquired = true;
   }
+  // spaceman.angle += 1;
 
   if (game.physics.arcade.overlap(ship, startingGate)) {
     gameStarted = true;
@@ -343,7 +353,6 @@ const sendResults = ((username) => {
     return;
   }
   time *= 1000;
-  const levelInt = levelId.slice(-2);
 
   console.log(levelInt);
   const options = {
@@ -365,4 +374,13 @@ const sendResults = ((username) => {
     .fail(($xhr) => {
       Materialize.toast($xhr.responseText, 3000);
     });
+});
+
+const nextLevel = 'level0' + (parseInt(levelInt) + 1).toString();
+
+if (nextLevel === 'level07') {
+  $('#nextButton').addClass('hide')
+}
+$('#nextButton').on('click', () => {
+  localStorage.setItem('currentLevel', nextLevel);
 });
