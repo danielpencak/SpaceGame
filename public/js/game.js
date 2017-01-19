@@ -62,7 +62,8 @@ const graphicAssets = {
   startingGate: { URL: '/assets/bullet.png', name: 'startingGate' },
   kaboom: { URL: '/assets/explode.png', name: 'kaboom' },
   hanger: { URL: '/assets/tron.png', name: 'hanger' },
-  pointer: { URL: '/assets/pointer.png', name: 'pointer' }
+  pointer: { URL: '/assets/pointer.png', name: 'pointer' },
+  floor: { URL: '/assets/metal.png', name: 'floor' }
 };
 
 const preload = (() => {
@@ -74,6 +75,7 @@ const preload = (() => {
   game.load.spritesheet(graphicAssets.kaboom.name, graphicAssets.kaboom.URL, 128, 128);
   game.load.image(graphicAssets.hanger.name, graphicAssets.hanger.URL);
   game.load.image(graphicAssets.pointer.name, graphicAssets.pointer.URL);
+  game.load.image(graphicAssets.floor.name, graphicAssets.floor.URL);
 });
 
 const create = (() => {
@@ -86,7 +88,8 @@ const create = (() => {
     asteroids: [[630, 550]],
     hangerTiles: [[0, 0], [50, 0], [100, 0], [450, 0], [500, 0], [550, 0],
     [0, 50], [0, 100], [0, 150], [0, 200], [0, 250], [0, 300], [0, 350],
-    [550, 50], [550, 50], [550, 50], [550, 100], [550, 150], [550, 200], [550, 250], [550, 300], [550, 350], [50, 350], [100, 350], [150, 350], [200, 350], [250, 350], [300, 350], [350, 350], [400, 350], [450, 350], [500, 350]]
+    [550, 50], [550, 50], [550, 50], [550, 100], [550, 150], [550, 200], [550, 250], [550, 300], [550, 350], [50, 350], [100, 350], [150, 350], [200, 350], [250, 350], [300, 350], [350, 350], [400, 350], [450, 350], [500, 350]],
+    floor: [[50, 50]]
   }, level02: {
     asteroids: [[630, 550], [674, 686]],
     hangerTiles: [[0, 0], [50, 0], [100, 0], [450, 0], [500, 0], [550, 0],
@@ -121,10 +124,6 @@ const create = (() => {
   game.physics.startSystem(Phaser.Physics.arcade);
 
   // create ship sprite, enable physics
-  ship = game.add.sprite(shipProperties.startX, shipProperties.startY, 'ship');
-  ship.anchor.set(0.5, 0.5);
-  game.physics.arcade.enable(ship);
-  ship.body.collideWorldBounds = true;
 
   const offsetX = (mapSizeX / 2) - 300;
   const offsetY = mapSizeY - 600;
@@ -150,13 +149,37 @@ const create = (() => {
     }
   });
 
+  const addFloor = (() => {
+    for (const elem of gameObjects[levelId].floor) {
+      // const newObject = game.add.sprite(offsetX + elem[0], offsetY + elem[1], 'floor');
+      game.add.tileSprite(offsetX + 50, offsetY + 50, 500, 300, 'floor');
+
+      // newObject.moveDown();
+    }
+  });
+
   addAsteroids();
   addHangerTile();
+  addFloor();
+
+  game.add.text(offsetX + 100, offsetY + 100, '<^> to move ship', { font: '24px Arial', fill: 'black' });
+
+  game.add.text(offsetX + 100, offsetY + 170, 'avoid the mines', { font: '24px Arial', fill: 'black' });
+
+  game.add.text(offsetX + 100, offsetY + 240, 'rescue the spaceman', { font: '24px Arial', fill: 'black' });
+
+  game.add.text(offsetX + 100, offsetY + 270, 'and bring him back to the ship', { font: '24px Arial', fill: 'black' });
+
+  ship = game.add.sprite(shipProperties.startX, shipProperties.startY, 'ship');
+  ship.anchor.set(0.5, 0.5);
+  ship.bringToTop();
+  game.physics.arcade.enable(ship);
+  ship.body.collideWorldBounds = true;
 
   spaceman = game.add.sprite(600, 400, 'spaceman');
   game.physics.arcade.enable(spaceman);
 
-  startingGate = game.add.sprite(offsetX + 150, offsetY + 0, 'startingGate');
+  startingGate = game.add.sprite(offsetX + 150, offsetY + 40, 'startingGate');
   game.physics.arcade.enable(startingGate);
 
   cursors = game.input.keyboard.createCursorKeys();
