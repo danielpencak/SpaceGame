@@ -9,7 +9,7 @@ module.exports.seed = ((knex) => {
     .then(() => {
       return knex('levels').insert([{
         id: 1,
-        level_name: 'alpha1',
+        level_name: 'too easy',
         difficulty: 'Easy',
         created_at: new Date('2016-06-29 14:26:16 UTC'),
         updated_at: new Date('2016-06-29 14:26:16 UTC')

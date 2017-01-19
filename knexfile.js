@@ -3,16 +3,17 @@
 module.exports = {
   development: {
     client: 'pg',
-    connection: 'postgres://localhost/spaceRace_dev'
+    connection: 'postgres://localhost/spaceRace_dev',
+    seeds: {
+      directory: '/seedsDev'
+    }
   },
-
-  // test: {
-  //   client: 'pg',
-  //   connection: 'postgres://localhost/spaceRace_test'
-  // },
 
   production: {
     client: 'pg',
-    connection: process.env.DATABASE_URL
+    connection: process.env.DATABASE_URL,
+    seeds: {
+      directory: '/seeds'
+    }
   }
 };
