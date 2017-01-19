@@ -9,6 +9,7 @@ main {
   background-image: url("../assets/screenShotBackground.png");
   background-size: cover;
   display: flex;
+  flex-direction: column;
   height: 100vh;
   justify-content: center;
   width: 100vw;
@@ -39,8 +40,8 @@ ul {
 .play {
   color: white;
   font-size: 80px;
-  margin-top: 220px;
   height: 80px;
+  margin: 0 auto;
 }
 
 .play:hover {

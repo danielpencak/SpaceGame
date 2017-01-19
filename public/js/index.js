@@ -4,10 +4,8 @@
 
 (function() {
   'use strict';
-  $(document).ready(function(){
-      $('.carousel').carousel();
-    });
   $(document).ready(() => {
+    $('.carousel').carousel();
     $('.modal').modal();
     $('#leaderboardsModal').modal({ dismissible: true });
     const loginCheckOptions = {
@@ -183,12 +181,31 @@
       $('#leaderboardsModal').css('display', 'block');
     }
   });
-  $('#level1').on('click', () => {
+  $('#playButton').on('click', () => {
+    console.log('play');
+  });
+  $('#carousel1').on('click', () => {
     localStorage.setItem('currentLevel', 'level01');
-    console.log('level1');
-  })
-  $('#level2').on('click', () => {
+    console.log('level 1');
+  });
+  $('#carousel2').on('click', () => {
     localStorage.setItem('currentLevel', 'level02');
-    console.log('level2');
-  })
+    console.log('level 2');
+  });
+  $('#carousel3').on('click', () => {
+    localStorage.setItem('currentLevel', 'level03');
+    console.log('level 3');
+  });
+  $('#carousel4').on('click', () => {
+    localStorage.setItem('currentLevel', 'level04');
+    console.log('level 4');
+  });
+  $('#carousel5').on('click', () => {
+    localStorage.setItem('currentLevel', 'level05');
+    console.log('level 5');
+  });
+  $('#carousel6').on('click', () => {
+    localStorage.setItem('currentLevel', 'level06');
+    console.log('level 6');
+  });
 })();

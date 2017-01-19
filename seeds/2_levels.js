@@ -16,7 +16,31 @@ module.exports.seed = ((knex) => {
       }, {
         id: 2,
         level_name: 'too easy',
-        difficulty: 'easier than easy',
+        difficulty: 'easy',
+        created_at: new Date('2016-06-29 14:26:16 UTC'),
+        updated_at: new Date('2016-06-29 14:26:16 UTC')
+      }, {
+        id: 3,
+        level_name: 'too easy',
+        difficulty: 'medium',
+        created_at: new Date('2016-06-29 14:26:16 UTC'),
+        updated_at: new Date('2016-06-29 14:26:16 UTC')
+      }, {
+        id: 4,
+        level_name: 'too easy',
+        difficulty: 'medium',
+        created_at: new Date('2016-06-29 14:26:16 UTC'),
+        updated_at: new Date('2016-06-29 14:26:16 UTC')
+      }, {
+        id: 5,
+        level_name: 'too easy',
+        difficulty: 'hard',
+        created_at: new Date('2016-06-29 14:26:16 UTC'),
+        updated_at: new Date('2016-06-29 14:26:16 UTC')
+      }, {
+        id: 6,
+        level_name: 'too easy',
+        difficulty: 'hard',
         created_at: new Date('2016-06-29 14:26:16 UTC'),
         updated_at: new Date('2016-06-29 14:26:16 UTC')
       }]);
