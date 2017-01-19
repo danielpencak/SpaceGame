@@ -5,7 +5,7 @@ module.exports = {
     client: 'pg',
     connection: 'postgres://localhost/spaceRace_dev',
     seeds: {
-      directory: '/seedsDev'
+      directory: './seeds/dev'
     }
   },
 
@@ -13,7 +13,7 @@ module.exports = {
     client: 'pg',
     connection: process.env.DATABASE_URL,
     seeds: {
-      directory: '/seeds'
+      directory: './seeds/production'
     }
   }
 };
