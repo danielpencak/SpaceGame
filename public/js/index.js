@@ -7,7 +7,6 @@
   $(document).ready(function(){
       $('.carousel').carousel();
     });
-  $('.carousel.carousel-slider').carousel({ full_width: true, no_wrap: true });
   $(document).ready(() => {
     $('.modal').modal();
     $('#leaderboardsModal').modal({ dismissible: true });
@@ -72,28 +71,28 @@
 
     $.ajax(leaderboardOptions)
       .done((rows) => {
-        // const leaderboardRows = rows;
-        // const $tableBody = $('#leaderboardsBody1');
-        //
-        // for (let i = 1; i <= leaderboardRows.length; i++) {
-        //   const $tr = $('<tr>');
-        //   const $tdRank = $('<td>');
-        //
-        //   $tr.append($tdRank.text(i));
-        //   let { time } = leaderboardRows[i - 1];
-        //   const { username, levelId, difficulty } = leaderboardRows[i - 1];
-        //
-        //   time /= 1000;
-        //   const leaderBoardColumns = [time, username /* ,levelId, difficulty */ ];
-        //
-        //   for (const elem in leaderBoardColumns) {
-        //     const $td = $('<td>');
-        //
-        //     $td.text(leaderBoardColumns[elem]);
-        //     $tr.append($td);
-        //   }
-        //   $tableBody.append($tr);
-        // }
+        const leaderboardRows = rows;
+        const $tableBody = $('#leaderboardsBody');
+
+        for (let i = 1; i <= leaderboardRows.length; i++) {
+          const $tr = $('<tr>');
+          const $tdRank = $('<td>');
+
+          $tr.append($tdRank.text(i));
+          let { time } = leaderboardRows[i - 1];
+          const { username, levelId, difficulty } = leaderboardRows[i - 1];
+
+          time /= 1000;
+          const leaderBoardColumns = [time, username, levelId, difficulty];
+
+          for (const elem in leaderBoardColumns) {
+            const $td = $('<td>');
+
+            $td.text(leaderBoardColumns[elem]);
+            $tr.append($td);
+          }
+          $tableBody.append($tr);
+        }
       });
   });
 
