@@ -112,6 +112,7 @@ th {
   background-color: darkgrey;
   overflow: scroll;
   padding: 20px;
+  height: 100%;
 }
 
 .leaderboardsTitle {
@@ -149,4 +150,8 @@ th {
 
 .username {
   margin-top: 5px;
+}
+
+.levelSelector {
+  height: 500px
 }
