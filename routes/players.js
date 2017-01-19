@@ -4,12 +4,14 @@ const bcrypt = require('bcrypt-as-promised');
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const knex = require('../knex');
+const ev = require('express-validation');
+const validations = require('../validations/players');
 const { camelizeKeys, decamelizeKeys } = require('humps');
 
 // eslint-disable-next-line new-cap
 const router = express.Router();
 
-router.post('/players', (req, res, next) => {
+router.post('/players', ev(validations.post), (req, res, next) => {
   const { username, password } = req.body;
 
   knex('players')

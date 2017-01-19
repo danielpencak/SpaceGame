@@ -4,6 +4,8 @@ const bcrypt = require('bcrypt-as-promised');
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const knex = require('../knex');
+const ev = require('express-validation');
+const validations = require('../validations/token');
 const { camelizeKeys } = require('humps');
 
 // eslint-disable-next-line new-cap
@@ -19,7 +21,7 @@ router.get('/token', (req, res) => {
   });
 });
 
-router.post('/token', (req, res, next) => {
+router.post('/token', ev(validations.post), (req, res, next) => {
   const { username, password } = req.body;
 
   let player;

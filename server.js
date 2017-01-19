@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 /* eslint-disable no-useless-return */
 /* eslint-disable no-unused-vars */
+/* eslint-disable max-params */
 'use strict';
 
 if (process.env.NODE_ENV !== 'production') {
@@ -47,6 +48,24 @@ app.use(leaderboards);
 
 app.use((_req, res, _next) => {
   return res.sendStatus(404);
+});
+
+app.use((err, _req, res, _next) => {
+  // Handle joi errors
+  if (err.status) {
+    return res.status(err.status).send(err);
+  }
+
+  // Handle boom errors
+  if (err.output && err.output.statusCode) {
+    return res
+      .status(err.output.statusCode)
+      .set('Content-Type', 'text/plain')
+      .send(err.message);
+  }
+
+  console.error(err.stack);
+  res.sendStatus(500);
 });
 
 const port = process.env.PORT || 8000;

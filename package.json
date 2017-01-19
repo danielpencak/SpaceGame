@@ -1,7 +1,7 @@
 {
   "name": "space_game",
   "version": "0.1.0",
-  "description": "",
+  "description": "A skills-based game where you must navigate a spacecraft around a group of obstacles in order to capture an objective and return to base in the quickest time possible",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -16,7 +16,10 @@
     "url": "git+https://github.com/danielpencak/SpaceGame.git"
   },
   "keywords": [],
-  "contributors": ["Daniel Pencak <danielpencak@gmail.com>", "William Helton <will9_30@yahoo.com>"],
+  "contributors": [
+    "Daniel Pencak <danielpencak@gmail.com>",
+    "William Helton <will9_30@yahoo.com>"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/danielpencak/SpaceGame/issues"
@@ -28,7 +31,9 @@
     "boom": "^4.2.0",
     "cookie-parser": "^1.4.3",
     "express": "^4.14.0",
+    "express-validation": "^1.0.1",
     "humps": "^2.0.0",
+    "joi": "^9.2.0",
     "jsonwebtoken": "^7.2.1",
     "knex": "^0.12.6",
     "morgan": "^1.7.0",

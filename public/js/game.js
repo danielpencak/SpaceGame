@@ -379,7 +379,7 @@ const sendResults = ((username) => {
 const nextLevel = 'level0' + (parseInt(levelInt) + 1).toString();
 
 if (nextLevel === 'level07') {
-  $('#nextButton').addClass('hide')
+  $('#nextButton').addClass('disabled')
 }
 $('#nextButton').on('click', () => {
   localStorage.setItem('currentLevel', nextLevel);
