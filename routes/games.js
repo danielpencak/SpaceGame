@@ -22,7 +22,7 @@ const authorize = ((req, res, next) => {
 });
 
 router.post('/games', authorize, (req, res, next) => {
-  const { username, time, levelId } = req.body;
+  const { username, time, levelInt } = req.body;
 
   knex('players')
     .where('username', username)
@@ -35,7 +35,7 @@ router.post('/games', authorize, (req, res, next) => {
     .then((playerId) => {
       return knex('games').insert({
         player_id: playerId,
-        level_id: levelId,
+        level_id: levelInt,
         time
       }, '*');
     })

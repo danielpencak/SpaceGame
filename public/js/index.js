@@ -177,7 +177,16 @@
 
   $(document).ready(() => {
     if (window.location.href.indexOf('#leaderboardsModal') !== -1) {
+      $('#leaderboardsModal').modal({ dismissible: true });
       $('#leaderboardsModal').css('display', 'block');
     }
   });
+  $('#level1').on('click', () => {
+    localStorage.setItem('currentLevel', 'level01');
+    console.log('level1');
+  })
+  $('#level2').on('click', () => {
+    localStorage.setItem('currentLevel', 'level02');
+    console.log('level2');
+  })
 })();

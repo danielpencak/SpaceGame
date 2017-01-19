@@ -31,8 +31,9 @@ let borderLineLeft = {};
 let intersectPoint = {};
 
 // game state
-// localStorage.getItem(currentLevel)
-const levelId = 1;
+
+const levelId = localStorage.getItem('currentLevel');
+console.log(levelId);
 let spacemanAcquired = false;
 let pauseTime = 0;
 let totalTimePaused = 0;
@@ -77,12 +78,23 @@ const preload = (() => {
 
 const create = (() => {
   // set asteroid coordinates
-  const gameObjects = {
+  // const gameObjects = {
+  //   asteroids: [[630, 550], [674, 686], [690, 770], [769, 510], [835, 660], [535, 730], [1005, 619], [999, 675], [885, 835], [456, 547], [346, 634], [451, 289], [346, 634], [366, 434], [833, 387], [705, 207], [960, 273], [702, 994], [569, 938], [409, 867], [451, 1082], [1185, 882], [1272, 846], [1418, 871], [1588, 895], [451, 289], [346, 634], [366, 434]],
+  //   hangerTiles: [[0, 0], [50, 0], [100, 0], [450, 0], [500, 0], [550, 0],
+  //   [0, 50], [0, 100], [0, 150], [0, 200], [0, 250], [0, 300], [0, 350],
+  //   [550, 50], [550, 50], [550, 50], [550, 100], [550, 150], [550, 200], [550, 250], [550, 300], [550, 350], [50, 350], [100, 350], [150, 350], [200, 350], [250, 350], [300, 350], [350, 350], [400, 350], [450, 350], [500, 350]]
+  // };
+  const gameObjects = { level01: {
     asteroids: [[630, 550], [674, 686], [690, 770], [769, 510], [835, 660], [535, 730], [1005, 619], [999, 675], [885, 835], [456, 547], [346, 634], [451, 289], [346, 634], [366, 434], [833, 387], [705, 207], [960, 273], [702, 994], [569, 938], [409, 867], [451, 1082], [1185, 882], [1272, 846], [1418, 871], [1588, 895], [451, 289], [346, 634], [366, 434]],
     hangerTiles: [[0, 0], [50, 0], [100, 0], [450, 0], [500, 0], [550, 0],
     [0, 50], [0, 100], [0, 150], [0, 200], [0, 250], [0, 300], [0, 350],
     [550, 50], [550, 50], [550, 50], [550, 100], [550, 150], [550, 200], [550, 250], [550, 300], [550, 350], [50, 350], [100, 350], [150, 350], [200, 350], [250, 350], [300, 350], [350, 350], [400, 350], [450, 350], [500, 350]]
-  };
+  }, level02: {
+    asteroids: [[630, 550], [674, 686], [690, 770], [769, 510], [835, 660], [535, 730], [1005, 619], [999, 675], [885, 835], [456, 547], [346, 634], [451, 289]],
+    hangerTiles: [[0, 0], [50, 0], [100, 0], [450, 0], [500, 0], [550, 0],
+    [0, 50], [0, 100], [0, 150], [0, 200], [0, 250], [0, 300], [0, 350],
+    [550, 50], [550, 50], [550, 50], [550, 100], [550, 150], [550, 200], [550, 250], [550, 300], [550, 350], [50, 350], [100, 350], [150, 350], [200, 350], [250, 350], [300, 350], [350, 350], [400, 350], [450, 350], [500, 350]]
+  }};
 
   game.add.tileSprite(0, 0, 1920, 1920, 'deepSpace');
 
@@ -103,7 +115,7 @@ const create = (() => {
   asteroidsGroup = game.add.physicsGroup();
 
   const addAsteroids = (() => {
-    for (const elem of gameObjects.asteroids) {
+    for (const elem of gameObjects[levelId].asteroids) {
       const newObject = asteroidsGroup.create(elem[0], elem[1], 'asteroid');
 
       newObject.body.immovable = true;
@@ -113,7 +125,7 @@ const create = (() => {
   hangerTilesGroup = game.add.physicsGroup();
 
   const addHangerTile = (() => {
-    for (const elem of gameObjects.hangerTiles) {
+    for (const elem of gameObjects[levelId].hangerTiles) {
       const newObject = hangerTilesGroup.create(offsetX + elem[0], offsetY + elem[1], 'hanger');
 
       newObject.body.immovable = true;
@@ -290,9 +302,12 @@ const sendResults = ((username) => {
     return;
   }
   time *= 1000;
+  const levelInt = levelId.slice(-2);
+
+  console.log(levelInt);
   const options = {
     contentType: 'application/json',
-    data: JSON.stringify({ username, time, levelId }),
+    data: JSON.stringify({ username, time, levelInt }),
     dataType: 'json',
     type: 'POST',
     url: '/games'
