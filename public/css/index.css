@@ -59,16 +59,16 @@ ul {
 ::-webkit-input-placeholder {
   color: white;
   font-size: 15px;
-  opacity: 1 !important; /* for older chrome versions. may no longer apply. */
+  opacity: 1 !important;
 }
 
-:-moz-placeholder { /* Firefox 18- */
+:-moz-placeholder {
   color: white;
   font-size: 15px;
   opacity: 1 !important;
 }
 
-::-moz-placeholder {  /* Firefox 19+ */
+::-moz-placeholder {
   color: white;
   font-size: 15px;
   opacity: 1 !important;
@@ -161,18 +161,6 @@ th {
   height: 500px
 }
 
-/*#levelButtons > button {
-  background-color: #483b36 !important;
-}*/
-
-#level1Button {
-  background-color: #483b36;
+.btn:focus {
+  background-color: grey;
 }
-
-/*#level1Button:hover {
-  background-color: orange;
-}*/
-
-/*#tableHead {
-  color: red;
-}*/

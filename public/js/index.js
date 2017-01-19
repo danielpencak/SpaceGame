@@ -76,14 +76,20 @@
         const $th = $('.tableHead');
 
         $th.css('font-size', '30px');
-
+        let j = 1;
         for (let i = 1; i <= leaderboardRows.length; i++) {
           const $tr = $('<tr>');
           const $tdRank = $('<td>');
 
-          $tr.append($tdRank.text(i));
           let { time } = leaderboardRows[i - 1];
           const { username, levelId, difficulty } = leaderboardRows[i - 1];
+
+          if (leaderboardRows[i-2]) {
+            if (leaderboardRows[i-2].levelId !== levelId) {
+              j = 1;
+            }
+          }
+          $tr.append($tdRank.text(j));
 
           time /= 1000;
           const leaderBoardColumns = [time, username, levelId, difficulty];
@@ -97,11 +103,15 @@
             $tr.css('border-top', '2px solid black');
             if (username === localStorage.getItem('username')) {
               $tr.css('background-color', 'rgba(255, 58, 0, 0.2)');
-              // $tr.css('opacity', '.1');
+            }
+            if (elem == 2 || elem == 3) {
+              console.log(leaderBoardColumns[elem]);
+              $td.addClass('toHide');
             }
             $tr.append($td);
           }
           $tableBody.append($tr);
+          j ++;
         }
       });
   });
@@ -224,36 +234,42 @@
 
   $('#allButton').on('click', () => {
     $('.tableRow').removeClass('hide');
+    $('.toHide').removeClass('hide');
   });
 
   $('#level1Button').on('click', () => {
-    // $('.levelButton').css('background-color', '#483b36');
     $('.tableRow').addClass('hide');
     $('.1').removeClass('hide');
+    $('.toHide').addClass('hide');
   });
 
   $('#level2Button').on('click', () => {
     $('.tableRow').addClass('hide');
     $('.2').removeClass('hide');
+    $('.toHide').addClass('hide');
   });
 
   $('#level3Button').on('click', () => {
     $('.tableRow').addClass('hide');
     $('.3').removeClass('hide');
+    $('.toHide').addClass('hide');
   });
 
   $('#level4Button').on('click', () => {
     $('.tableRow').addClass('hide');
     $('.4').removeClass('hide');
+    $('.toHide').addClass('hide');
   });
 
   $('#level5Button').on('click', () => {
     $('.tableRow').addClass('hide');
     $('.5').removeClass('hide');
+    $('.toHide').addClass('hide');
   });
 
   $('#level6Button').on('click', () => {
     $('.tableRow').addClass('hide');
     $('.6').removeClass('hide');
+    $('.toHide').addClass('hide');
   });
 })();
