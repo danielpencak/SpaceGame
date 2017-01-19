@@ -65,7 +65,7 @@ app.use((err, _req, res, _next) => {
   }
 
   console.error(err.stack);
-  res.sendStatus(500);
+  // res.sendStatus(500);
 });
 
 const port = process.env.PORT || 8000;

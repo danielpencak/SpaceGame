@@ -6,6 +6,7 @@
 (function() {
   'use strict';
   $(document).ready(() => {
+    localStorage.removeItem('currentLevel');
     $('.carousel').carousel();
     $('.modal').modal();
     $('#leaderboardsModal').modal({ dismissible: true });
@@ -89,6 +90,10 @@
 
             $td.text(leaderBoardColumns[elem]);
             $tr.append($td);
+            console.log(localStorage.getItem('username'));
+            if (username === localStorage.getItem('username')) {
+              $tr.addClass('highlight');
+            }
           }
           $tableBody.append($tr);
         }
