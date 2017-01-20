@@ -19,6 +19,7 @@ let startingGate = {};
 let engine = {};
 
 // control/UI
+let mute = {};
 let pauseLabel = {};
 let cursors = {};
 let timeText = {};
@@ -97,24 +98,13 @@ const preload = (() => {
 });
 
 const create = (() => {
-  if (music.key) {
-    // music.stop();
-  }
-  else {
-  music = game.add.audio('music');
-  music.loop = true;
-  console.log(music);
-
-  music.play();
-  }
-
   // set asteroid coordinates
   // asteroids: [[630, 550], [674, 686], [690, 770], [769, 510], [835, 660], [535, 730], [1005, 619], [999, 675], [885, 835], [456, 547], [346, 634], [451, 289], [346, 634], [366, 434], [833, 387], [705, 207], [960, 273], [702, 994], [569, 938], [409, 867], [451, 1082], [1185, 882], [1272, 846], [1418, 871], [1588, 895], [451, 289], [346, 634], [366, 434]],
   // hangerTiles: [[0, 0], [50, 0], [100, 0], [450, 0], [500, 0], [550, 0],
   // [0, 50], [0, 100], [0, 150], [0, 200], [0, 250], [0, 300], [0, 350],
   // [550, 50], [550, 50], [550, 50], [550, 100], [550, 150], [550, 200], [550, 250], [550, 300], [550, 350], [50, 350], [100, 350], [150, 350], [200, 350], [250, 350], [300, 350], [350, 350], [400, 350], [450, 350], [500, 350]]
   const gameObjects = { level01: {
-    asteroids: [[630, 550]],
+    asteroids: [[630, 550], [674, 686], [690, 770], [769, 510], [835, 660], [535, 730], [1005, 619], [999, 675], [885, 835], [456, 547], [346, 634], [451, 289], [346, 634], [366, 434], [833, 387], [705, 207], [960, 273], [702, 994], [569, 938], [409, 867], [451, 1082], [1185, 882], [1272, 846], [1418, 871], [1588, 895], [451, 289], [346, 634], [366, 434]],
     hangerTiles: [[0, 0], [50, 0], [100, 0], [450, 0], [500, 0], [550, 0],
     [0, 50], [0, 100], [0, 150], [0, 200], [0, 250], [0, 300], [0, 350],
     [550, 50], [550, 50], [550, 50], [550, 100], [550, 150], [550, 200], [550, 250], [550, 300], [550, 350], [50, 350], [100, 350], [150, 350], [200, 350], [250, 350], [300, 350], [350, 350], [400, 350], [450, 350], [500, 350]],
@@ -215,6 +205,12 @@ const create = (() => {
   cursors = game.input.keyboard.createCursorKeys();
 
   game.camera.follow(ship);
+
+  if (!music.paused) {
+    music = game.add.audio('music');
+    music.loop = true;
+    music.play();
+  }
 });
 
 const update = (() => {
@@ -246,6 +242,25 @@ const update = (() => {
     unpause();
   });
   game.input.onDown.add(unpause, self);
+
+  // music pause/ play
+  if (mute.text) {
+    mute.kill();
+  }
+  mute = game.add.text(50, 0, 'Mute', { fontSize: '24px', fill: 'white' });
+  mute.fixedToCamera = true;
+  mute.inputEnabled = true;
+  mute.events.onInputUp.add(() => {
+    console.log('clicked mute');
+    if (music.paused === false) {
+      console.log('pause');
+      music.pause();
+    }
+    else {
+      console.log('play');
+      music.resume();
+    }
+  });
 
   // time counter text
   if (timeText.text) {
