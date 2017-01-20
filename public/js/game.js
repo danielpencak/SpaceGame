@@ -16,6 +16,7 @@ let asteroidsGroup = {};
 let hangerTilesGroup = {};
 let pointer = {};
 let startingGate = {};
+let engine = {};
 
 // control/UI
 let pauseLabel = {};
@@ -40,7 +41,7 @@ let totalTimePaused = 0;
 let startTime = 0;
 let time = 0;
 let gameStarted = false;
-
+console.log(engine);
 // console.log(levelId);
 
 const mapSizeX = 1920;
@@ -65,7 +66,8 @@ const graphicAssets = {
   kaboom: { URL: '/assets/explode.png', name: 'kaboom' },
   hanger: { URL: '/assets/hangerWall.png', name: 'hanger' },
   pointer: { URL: '/assets/pointer.png', name: 'pointer' },
-  floor: { URL: '/assets/metal.png', name: 'floor' }
+  floor: { URL: '/assets/metal.png', name: 'floor' },
+  engine: { URL: '/assets/engineBurst.png', name: 'engine' }
 };
 
 const WebFontConfig = {
@@ -92,7 +94,7 @@ const preload = (() => {
   game.load.image(graphicAssets.hanger.name, graphicAssets.hanger.URL);
   game.load.image(graphicAssets.pointer.name, graphicAssets.pointer.URL);
   game.load.image(graphicAssets.floor.name, graphicAssets.floor.URL);
-
+  game.load.image(graphicAssets.engine.name, graphicAssets.engine.URL);
   game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
 });
 
@@ -289,10 +291,20 @@ const update = (() => {
 
   // ship movement /////////////////////
   if (cursors.up.isDown) {
+    if (engine.key) {
+      engine.kill();
+    }
     game.physics.arcade.accelerationFromRotation(ship.rotation - 1.5708, 200, ship.body.acceleration);
+
+    engine = game.add.sprite(0, 0, 'engine');
+    engine.anchor.set(0.5, -1.2);
+    ship.addChild(engine);
   }
   else {
     ship.body.acceleration.set(0);
+    if (engine.key) {
+      engine.kill();
+    }
   }
   if (cursors.left.isDown) {
     ship.body.angularVelocity = -300;
