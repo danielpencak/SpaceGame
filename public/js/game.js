@@ -22,6 +22,7 @@ let engine = {};
 let pauseLabel = {};
 let cursors = {};
 let timeText = {};
+let music = {};
 
 // waypoint
 let line = {};
@@ -67,20 +68,16 @@ const graphicAssets = {
   hanger: { URL: '/assets/hangerWall.png', name: 'hanger' },
   pointer: { URL: '/assets/pointer.png', name: 'pointer' },
   floor: { URL: '/assets/metal.png', name: 'floor' },
-  engine: { URL: '/assets/engineBurst.png', name: 'engine' }
+  engine: { URL: '/assets/engineBurst.png', name: 'engine' },
+  music: { URL: '/assets/music.mp3', name: 'music' }
 };
 
 const WebFontConfig = {
+  active: (() => { game.time.events.add(Phaser.Timer.SECOND, createText); }),
 
-    //  'active' means all requested fonts have finished loading
-    //  We set a 1 second delay before calling 'createText'.
-    //  For some reason if we don't the browser cannot render the text the first time it's created.
-    active: function() { game.time.events.add(Phaser.Timer.SECOND, createText); },
-
-    //  The Google Fonts we want to load (specify as many as you like in the array)
-    google: {
-      families: ['Allerta Stencil']
-    }
+  google: {
+    families: ['Allerta Stencil']
+  }
 
 };
 
@@ -96,9 +93,21 @@ const preload = (() => {
   game.load.image(graphicAssets.floor.name, graphicAssets.floor.URL);
   game.load.image(graphicAssets.engine.name, graphicAssets.engine.URL);
   game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
+  game.load.audio(graphicAssets.music.name, graphicAssets.music.URL);
 });
 
 const create = (() => {
+  if (music.key) {
+    // music.stop();
+  }
+  else {
+  music = game.add.audio('music');
+  music.loop = true;
+  console.log(music);
+
+  music.play();
+  }
+
   // set asteroid coordinates
   // asteroids: [[630, 550], [674, 686], [690, 770], [769, 510], [835, 660], [535, 730], [1005, 619], [999, 675], [885, 835], [456, 547], [346, 634], [451, 289], [346, 634], [366, 434], [833, 387], [705, 207], [960, 273], [702, 994], [569, 938], [409, 867], [451, 1082], [1185, 882], [1272, 846], [1418, 871], [1588, 895], [451, 289], [346, 634], [366, 434]],
   // hangerTiles: [[0, 0], [50, 0], [100, 0], [450, 0], [500, 0], [550, 0],
