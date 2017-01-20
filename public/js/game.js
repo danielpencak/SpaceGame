@@ -63,9 +63,23 @@ const graphicAssets = {
   spaceman: { URL: '/assets/phaser-dude.png', name: 'spaceman' },
   startingGate: { URL: '/assets/bullet.png', name: 'startingGate' },
   kaboom: { URL: '/assets/explode.png', name: 'kaboom' },
-  hanger: { URL: '/assets/tron.png', name: 'hanger' },
+  hanger: { URL: '/assets/hangerWall.png', name: 'hanger' },
   pointer: { URL: '/assets/pointer.png', name: 'pointer' },
   floor: { URL: '/assets/metal.png', name: 'floor' }
+};
+
+const WebFontConfig = {
+
+    //  'active' means all requested fonts have finished loading
+    //  We set a 1 second delay before calling 'createText'.
+    //  For some reason if we don't the browser cannot render the text the first time it's created.
+    active: function() { game.time.events.add(Phaser.Timer.SECOND, createText); },
+
+    //  The Google Fonts we want to load (specify as many as you like in the array)
+    google: {
+      families: ['Allerta Stencil']
+    }
+
 };
 
 const preload = (() => {
@@ -78,6 +92,8 @@ const preload = (() => {
   game.load.image(graphicAssets.hanger.name, graphicAssets.hanger.URL);
   game.load.image(graphicAssets.pointer.name, graphicAssets.pointer.URL);
   game.load.image(graphicAssets.floor.name, graphicAssets.floor.URL);
+
+  game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
 });
 
 const create = (() => {
@@ -161,15 +177,15 @@ const create = (() => {
   addAsteroids();
   addHangerTile();
 
-  game.add.text(offsetX + 100, offsetY + 70, levelId.toUpperCase(), { font: '24px Arial', fill: 'black' });
+  game.add.text(offsetX + 100, offsetY + 70, levelId.toUpperCase(), { font: '35px Allerta Stencil', fill: 'black' });
 
-  game.add.text(offsetX + 100, offsetY + 120, '<^> To move the ship', { font: '24px Arial', fill: 'black' });
+  game.add.text(offsetX + 100, offsetY + 120, '<^> To move the ship', { font: '24px Allerta Stencil', fill: 'black' });
 
-  game.add.text(offsetX + 100, offsetY + 190, 'Avoid the mines', { font: '24px Arial', fill: 'black' });
+  game.add.text(offsetX + 100, offsetY + 190, 'Avoid the mines', { font: '24px Allerta Stencil', fill: 'black' });
 
-  game.add.text(offsetX + 100, offsetY + 260, 'Rescue the spaceman', { font: '24px Arial', fill: 'black' });
+  game.add.text(offsetX + 100, offsetY + 260, 'Rescue the spaceman', { font: '24px Allerta Stencil', fill: 'black' });
 
-  game.add.text(offsetX + 100, offsetY + 290, 'and bring him back to the ship', { font: '24px Arial', fill: 'black' });
+  game.add.text(offsetX + 100, offsetY + 290, 'and bring him back to the ship', { font: '24px Allerta Stencil', fill: 'black' });
 
   ship = game.add.sprite(shipProperties.startX, shipProperties.startY, 'ship');
   ship.anchor.set(0.5, 0.5);

@@ -70,50 +70,58 @@
     };
 
     $.ajax(leaderboardOptions)
-      .done((rows) => {
-        const leaderboardRows = rows;
-        const $tableBody = $('#leaderboardsBody').css('font-size', '30px');
-        const $th = $('.tableHead');
+    .done((rows) => {
+     const leaderboardRows = rows;
+     const $tableBody = $('#leaderboardsBody').css('font-size', '30px');
+     const $th = $('.tableHead');
 
-        $th.css('font-size', '30px');
-        let j = 1;
-        for (let i = 1; i <= leaderboardRows.length; i++) {
-          const $tr = $('<tr>');
-          const $tdRank = $('<td>');
+     $th.css('font-size', '30px');
+     let rank = 1;
+     for (let i = 1; i <= leaderboardRows.length; i++) {
+       const $tr = $('<tr>');
+       const $tdRank = $('<td>');
 
-          let { time } = leaderboardRows[i - 1];
-          const { username, levelId, difficulty } = leaderboardRows[i - 1];
+       let { time } = leaderboardRows[i - 1];
+       const { username, levelId, difficulty } = leaderboardRows[i - 1];
 
-          if (leaderboardRows[i-2]) {
-            if (leaderboardRows[i-2].levelId !== levelId) {
-              j = 1;
-            }
-          }
-          $tr.append($tdRank.text(j));
+       $tr.addClass(levelId.toString());
+       $tr.addClass('tableRow');
+       $tr.css('border-top', '2px solid black');
 
-          time /= 1000;
-          const leaderBoardColumns = [time, username, levelId, difficulty];
+       // change background color score belongs to signed in player
+       if (username === localStorage.getItem('username')) {
+         $tr.css('background-color', 'rgba(255, 58, 0, 0.2)');
+       }
 
-          for (const elem in leaderBoardColumns) {
-            const $td = $('<td>');
+       // reset rank counter and add thicker border if it is the first rank for a level
+       if (i === 1) {
+         $tr.css('border-top', '5px solid black');
+       }
+       if (leaderboardRows[i-2]) {
+         if (leaderboardRows[i-2].levelId !== levelId) {
+           rank = 1;
+           $tr.css('border-top', '5px solid black');
+         }
+       }
+       $tr.append($tdRank.text(rank));
 
-            $td.text(leaderBoardColumns[elem]);
-            $tr.addClass(levelId.toString());
-            $tr.addClass('tableRow');
-            $tr.css('border-top', '2px solid black');
-            if (username === localStorage.getItem('username')) {
-              $tr.css('background-color', 'rgba(255, 58, 0, 0.2)');
-            }
-            if (elem == 2 || elem == 3) {
-              console.log(leaderBoardColumns[elem]);
-              $td.addClass('toHide');
-            }
-            $tr.append($td);
-          }
-          $tableBody.append($tr);
-          j ++;
-        }
-      });
+       time /= 1000;
+       const leaderBoardColumns = [time, username, levelId, difficulty];
+
+       for (const elem in leaderBoardColumns) {
+         const $td = $('<td>');
+
+         $td.text(leaderBoardColumns[elem]);
+         if (elem == 2 || elem == 3) {
+           console.log(leaderBoardColumns[elem]);
+           $td.addClass('toHide');
+         }
+         $tr.append($td);
+       }
+       $tableBody.append($tr);
+       rank ++;
+     }
+   });
   });
 
   $('#signUpButton').on('click', (event) => {

@@ -22,3 +22,7 @@ h4 {
 #endModal {
   background-color: black;
 }
+
+canvas {
+  font-family: 'Allerta Stencil', sans-serif;
+}
