@@ -6,7 +6,7 @@ body {
 }
 
 main {
-  background-image: url("../assets/screenShotBackground.png");
+  background-image: url("../assets/deep-space.jpg");
   background-size: cover;
   display: flex;
   flex-direction: column;
