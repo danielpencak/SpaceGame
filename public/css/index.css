@@ -1,6 +1,7 @@
 * {
   box-sizing: border-box;
 }
+
 body {
   overflow: hidden;
 }
@@ -11,34 +12,50 @@ main {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  /*justify-content: center;*/
   width: 100vw;
 }
 
 td {
-  padding-top: 0;
   padding-bottom: 0;
+  padding-top: 0;
 }
+
+th {
+  width: 24%;
+}
+
 ul {
   height: 64px;
 }
 
 .btn {
   background-color: #483b36;
-  margin-right: 5px;
   margin-left: 10px;
+  margin-right: 5px;
+}
+
+.btn:focus {
+  background-color: grey;
 }
 
 .btn:hover {
   background-color: orange;
 }
 
-#signUpModal {
-  background-color: #6B6B6B;
-  color: white;
+.leaderboardsTitle {
+  font-family: 'Audiowide', cursive;
+  margin: 0 auto;
+}
+
+.levelSelector {
+  height: 500px
 }
 .modal {
   border: 5px solid black;
+}
+
+.opaque {
+  opacity: .2;
 }
 
 .play {
@@ -53,16 +70,12 @@ ul {
   color: orangered;
 }
 
-#selectLevel {
-  margin-top: 30px;
-  font-family: 'Audiowide', cursive;
-}
-#selectLevel:hover {
-  color: white;
-}
-
 .title {
   font-family: 'Audiowide', cursive;
+}
+
+.username {
+  margin-top: 5px;
 }
 
 ::-webkit-input-placeholder {
@@ -94,6 +107,42 @@ ul {
   padding-right: 10px;
 }
 
+#leaderboardsModal {
+  bottom: 0;
+  color: black !important;
+  left: 3%;
+  margin-top: 15px;
+  max-height: 800px;
+  position: fixed;
+  right: 3%;
+  width: auto;
+}
+
+#leaderboardsModalContent {
+  background-color: darkgrey;
+  height: 100%;
+  overflow: scroll;
+  padding: 20px;
+}
+
+#loginButton {
+  background-color: #483b36;
+  margin-top: 14px;
+}
+
+#loginButton:hover {
+  background-color: orange;
+}
+
+#selectLevel {
+  font-family: 'Audiowide', cursive;
+  margin-top: 30px;
+}
+
+#selectLevel:hover {
+  color: white;
+}
+
 #usernameLI, #passwordLI {
   background-color: #6B6B6B;
   border: 5px solid black;
@@ -118,58 +167,12 @@ ul {
   background-color: orange;
 }
 
-th {
-  width: 24%;
-}
-
-#leaderboardsModalContent {
-  background-color: darkgrey;
-  overflow: scroll;
-  padding: 20px;
-  height: 100%;
-}
-
-.leaderboardsTitle {
-  font-family: 'Audiowide', cursive;
-  margin: 0 auto;
-}
-
-#leaderboardsModal {
-    color: black !important;
-    position: fixed;
-    right: 3%;
-    left: 3%;
-    bottom: 0;
-    width: auto;
-    margin-top: 15px;
-    max-height: 800px;
+#signUpModal {
+  background-color: #6B6B6B;
+  color: white;
 }
 
 #userLabel {
-  margin-top: 10px;
   font-family: 'Audiowide', cursive;
-}
-
-#loginButton {
-  background-color: #483b36;
-  margin-top: 14px;
-}
-
-#loginButton:hover {
-  background-color: orange;
-}
-
-.opaque {
-  opacity: .2;
-
-.username {
-  margin-top: 5px;
-}
-
-.levelSelector {
-  height: 500px
-}
-
-.btn:focus {
-  background-color: grey;
+  margin-top: 10px;
 }

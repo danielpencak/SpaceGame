@@ -1,9 +1,12 @@
+/* eslint-disable max-lines */
 /* eslint-disable no-extra-parens */
 /* eslint-disable max-len*/
 /* eslint-disable max-statements*/
 /* eslint-disable no-use-before-define*/
 /* eslint-disable no-undef */
 /* eslint-disable no-console */
+/* eslint-disable no-unused-vars */
+/* eslint-disable prefer-template */
 'use strict';
 
 // global variables
@@ -43,8 +46,6 @@ let totalTimePaused = 0;
 let startTime = 0;
 let time = 0;
 let gameStarted = false;
-console.log(engine);
-// console.log(levelId);
 
 const mapSizeX = 1920;
 const mapSizeY = 1920;
@@ -99,10 +100,6 @@ const preload = (() => {
 
 const create = (() => {
   // set asteroid coordinates
-  // asteroids: [[630, 550], [674, 686], [690, 770], [769, 510], [835, 660], [535, 730], [1005, 619], [999, 675], [885, 835], [456, 547], [346, 634], [451, 289], [346, 634], [366, 434], [833, 387], [705, 207], [960, 273], [702, 994], [569, 938], [409, 867], [451, 1082], [1185, 882], [1272, 846], [1418, 871], [1588, 895], [451, 289], [346, 634], [366, 434]],
-  // hangerTiles: [[0, 0], [50, 0], [100, 0], [450, 0], [500, 0], [550, 0],
-  // [0, 50], [0, 100], [0, 150], [0, 200], [0, 250], [0, 300], [0, 350],
-  // [550, 50], [550, 50], [550, 50], [550, 100], [550, 150], [550, 200], [550, 250], [550, 300], [550, 350], [50, 350], [100, 350], [150, 350], [200, 350], [250, 350], [300, 350], [350, 350], [400, 350], [450, 350], [500, 350]]
   const gameObjects = { level01: {
     asteroids: [[630, 550], [674, 686], [690, 770], [769, 510], [835, 660], [535, 730], [1005, 619], [999, 675], [885, 835], [456, 547], [346, 634], [451, 289], [346, 634], [366, 434], [833, 387], [705, 207], [960, 273], [702, 994], [569, 938], [409, 867], [451, 1082], [1185, 882], [1272, 846], [1418, 871], [1588, 895], [451, 289], [346, 634], [366, 434]],
     hangerTiles: [[0, 0], [50, 0], [100, 0], [450, 0], [500, 0], [550, 0],
@@ -251,13 +248,10 @@ const update = (() => {
   mute.fixedToCamera = true;
   mute.inputEnabled = true;
   mute.events.onInputUp.add(() => {
-    console.log('clicked mute');
     if (music.paused === false) {
-      console.log('pause');
       music.pause();
     }
     else {
-      console.log('play');
       music.resume();
     }
   });
@@ -296,7 +290,6 @@ const update = (() => {
     spaceman.kill();
     spacemanAcquired = true;
   }
-  // spaceman.angle += 1;
 
   if (game.physics.arcade.overlap(ship, startingGate)) {
     gameStarted = true;
@@ -400,7 +393,6 @@ const sendResults = ((username) => {
   }
   time *= 1000;
 
-  console.log(levelInt);
   const options = {
     contentType: 'application/json',
     data: JSON.stringify({ username, time, levelInt }),
@@ -411,8 +403,6 @@ const sendResults = ((username) => {
 
   $.ajax(options)
     .done((body) => {
-      // ask
-      console.log(body);
       if (body === false) {
         Materialize.toast('Login to save your score', 3000);
       }
@@ -425,7 +415,7 @@ const sendResults = ((username) => {
 const nextLevel = 'level0' + (parseInt(levelInt) + 1).toString();
 
 if (nextLevel === 'level07') {
-  $('#nextButton').addClass('disabled')
+  $('#nextButton').addClass('disabled');
 }
 $('#nextButton').on('click', () => {
   localStorage.setItem('currentLevel', nextLevel);

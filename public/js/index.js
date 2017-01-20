@@ -1,10 +1,13 @@
 /* eslint-disable strict */
 /* eslint-disable no-undef */
 /* eslint-disable max-len */
-/* eslint-disable */
+/* eslint-disable max-statements */
+/* eslint-disable no-plusplus */
+/* eslint-disable eqeqeq */
 
-(function() {
+(() => {
   'use strict';
+
   $(document).ready(() => {
     localStorage.removeItem('currentLevel');
     $('.carousel').carousel();
@@ -52,7 +55,8 @@
       .done((loggedIn) => {
         if (loggedIn) {
           updateHeader();
-        } else {
+        }
+        else {
           $('#loginButton').removeClass('hide');
           $('#usernameLI').removeClass('hide');
           $('#passwordLI').removeClass('hide');
@@ -71,57 +75,57 @@
 
     $.ajax(leaderboardOptions)
     .done((rows) => {
-     const leaderboardRows = rows;
-     const $tableBody = $('#leaderboardsBody').css('font-size', '30px');
-     const $th = $('.tableHead');
+      const leaderboardRows = rows;
+      const $tableBody = $('#leaderboardsBody').css('font-size', '30px');
+      const $th = $('.tableHead');
 
-     $th.css('font-size', '30px');
-     let rank = 1;
-     for (let i = 1; i <= leaderboardRows.length; i++) {
-       const $tr = $('<tr>');
-       const $tdRank = $('<td>');
+      $th.css('font-size', '30px');
+      let rank = 1;
 
-       let { time } = leaderboardRows[i - 1];
-       const { username, levelId, difficulty } = leaderboardRows[i - 1];
+      for (let i = 1; i <= leaderboardRows.length; i++) {
+        const $tr = $('<tr>');
+        const $tdRank = $('<td>');
 
-       $tr.addClass(levelId.toString());
-       $tr.addClass('tableRow');
-       $tr.css('border-top', '2px solid black');
+        let { time } = leaderboardRows[i - 1];
+        const { username, levelId, difficulty } = leaderboardRows[i - 1];
 
-       // change background color score belongs to signed in player
-       if (username === localStorage.getItem('username')) {
-         $tr.css('background-color', 'rgba(255, 58, 0, 0.2)');
-       }
+        $tr.addClass(levelId.toString());
+        $tr.addClass('tableRow');
+        $tr.css('border-top', '2px solid black');
 
-       // reset rank counter and add thicker border if it is the first rank for a level
-       if (i === 1) {
-         $tr.css('border-top', '5px solid black');
-       }
-       if (leaderboardRows[i-2]) {
-         if (leaderboardRows[i-2].levelId !== levelId) {
-           rank = 1;
-           $tr.css('border-top', '5px solid black');
-         }
-       }
-       $tr.append($tdRank.text(rank));
+        // change background color score belongs to signed in player
+        if (username === localStorage.getItem('username')) {
+          $tr.css('background-color', 'rgba(255, 58, 0, 0.2)');
+        }
 
-       time /= 1000;
-       const leaderBoardColumns = [time, username, levelId, difficulty];
+        // reset rank counter and add thicker border if it is the first rank for a level
+        if (i === 1) {
+          $tr.css('border-top', '5px solid black');
+        }
+        if (leaderboardRows[i - 2]) {
+          if (leaderboardRows[i - 2].levelId !== levelId) {
+            rank = 1;
+            $tr.css('border-top', '5px solid black');
+          }
+        }
+        $tr.append($tdRank.text(rank));
 
-       for (const elem in leaderBoardColumns) {
-         const $td = $('<td>');
+        time /= 1000;
+        const leaderBoardColumns = [time, username, levelId, difficulty];
 
-         $td.text(leaderBoardColumns[elem]);
-         if (elem == 2 || elem == 3) {
-           console.log(leaderBoardColumns[elem]);
-           $td.addClass('toHide');
-         }
-         $tr.append($td);
-       }
-       $tableBody.append($tr);
-       rank ++;
-     }
-   });
+        for (const elem in leaderBoardColumns) {
+          const $td = $('<td>');
+
+          $td.text(leaderBoardColumns[elem]);
+          if (elem == 2 || elem == 3) {
+            $td.addClass('toHide');
+          }
+          $tr.append($td);
+        }
+        $tableBody.append($tr);
+        rank++;
+      }
+    });
   });
 
   $('#signUpButton').on('click', (event) => {
@@ -211,34 +215,25 @@
       $('#leaderboardsModal').css('display', 'block');
     }
   });
-  $('#playButton').on('click', () => {
-    console.log('play');
-  });
+
   $('#carousel1').on('click', () => {
     localStorage.setItem('currentLevel', 'level01');
-    console.log('level 1');
   });
   $('#carousel2').on('click', () => {
     localStorage.setItem('currentLevel', 'level02');
-    console.log('level 2');
   });
   $('#carousel3').on('click', () => {
     localStorage.setItem('currentLevel', 'level03');
-    console.log('level 3');
   });
   $('#carousel4').on('click', () => {
     localStorage.setItem('currentLevel', 'level04');
-    console.log('level 4');
   });
   $('#carousel5').on('click', () => {
     localStorage.setItem('currentLevel', 'level05');
-    console.log('level 5');
   });
   $('#carousel6').on('click', () => {
     localStorage.setItem('currentLevel', 'level06');
-    console.log('level 6');
   });
-
 
   $('#allButton').on('click', () => {
     $('.tableRow').removeClass('hide');
