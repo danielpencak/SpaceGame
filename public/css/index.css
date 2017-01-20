@@ -11,7 +11,7 @@ main {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  justify-content: center;
+  /*justify-content: center;*/
   width: 100vw;
 }
 
@@ -46,10 +46,19 @@ ul {
   font-size: 80px;
   height: 80px;
   margin: 0 auto;
+  margin-top: 10px;
 }
 
 .play:hover {
   color: orangered;
+}
+
+#selectLevel {
+  margin-top: 30px;
+  font-family: 'Audiowide', cursive;
+}
+#selectLevel:hover {
+  color: white;
 }
 
 .title {

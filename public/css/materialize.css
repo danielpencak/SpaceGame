@@ -7764,11 +7764,12 @@ input[type=range]:focus::-ms-fill-upper {
 
 .carousel .carousel-item {
   display: none;
-  width: 200px;
-  height: 400px;
+  width: 350px;
+  height: 360px;
   position: absolute;
   top: 0;
   left: 0;
+  border: 10px solid black;
 }
 
 .carousel .carousel-item img {
