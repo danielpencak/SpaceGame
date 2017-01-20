@@ -190,7 +190,9 @@ const create = (() => {
 
   game.add.text(offsetX + 100, offsetY + 70, levelId.toUpperCase(), { font: '35px Allerta Stencil', fill: 'black' });
 
-  game.add.text(offsetX + 100, offsetY + 120, '<^> To move the ship', { font: '24px Allerta Stencil', fill: 'black' });
+  game.add.text(offsetX + 100, offsetY + 120, '\u2343\u2353\u2344', { font: '35px Allerta Stencil', fill: 'black' });
+
+  game.add.text(offsetX + 170, offsetY + 130, 'To move the ship', { font: '24px Allerta Stencil', fill: 'black' });
 
   game.add.text(offsetX + 100, offsetY + 190, 'Avoid the mines', { font: '24px Allerta Stencil', fill: 'black' });
 
