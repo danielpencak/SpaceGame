@@ -1,4 +1,5 @@
 #Space Race
+Creaed by: Will Helton and Daniel Pencak
 
 ##Project Description
 
@@ -32,7 +33,8 @@ The second was learning a new framework. We overcame this by digging through the
 
 ##Features
 
-[<img src="/public/assets/READMEImageLinkSmall.png">](https://vimeo.com/200575337)
+[<img src="/public/assets/READMEImageLinkMedium.png">](https://vimeo.com/200575337)
+Click here to watch a video demo of the game.
 
 ###Tech
 
