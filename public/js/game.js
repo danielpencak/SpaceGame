@@ -203,7 +203,7 @@ const create = (() => {
 
   game.camera.follow(ship);
 
-  if (!music.paused) {
+  if (!music.paused && !music.key) {
     music = game.add.audio('music');
     music.loop = true;
     music.play();
