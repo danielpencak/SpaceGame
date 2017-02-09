@@ -36,8 +36,13 @@ let borderLineRight = {};
 let borderLineLeft = {};
 let intersectPoint = {};
 
-// game state
+// level editor
+let newAsteroidArr = [];
+let lastTime = 0;
+let editMode = false;
+// editMode = true; // !Uncomment to edit levels!
 
+// game state
 const levelId = localStorage.getItem('currentLevel') || 'level01';
 const levelInt = levelId.slice(-2);
 let spacemanAcquired = false;
@@ -101,41 +106,47 @@ const preload = (() => {
 const create = (() => {
   // set asteroid coordinates
   const gameObjects = { level01: {
-    asteroids: [[630, 550], [674, 686], [690, 770], [769, 510], [835, 660], [535, 730], [1005, 619], [999, 675], [885, 835], [456, 547], [346, 634], [451, 289], [346, 634], [366, 434], [833, 387], [705, 207], [960, 273], [702, 994], [569, 938], [409, 867], [451, 1082], [1185, 882], [1272, 846], [1418, 871], [1588, 895], [451, 289], [346, 634], [366, 434]],
+    worldDimensions: [1920, 1920],
+    asteroids: [[630, 550], [674, 686], [690, 770], [769, 510], [835, 660], [535, 730], [1005, 619], [999, 675], [885, 835], [456, 547], [346, 634], [451, 289], [346, 634], [366, 434], [833, 387], [705, 207], [960, 273], [702, 994], [569, 938], [409, 867], [451, 1082], [1185, 882], [1272, 846], [1418, 871], [1588,895], [451, 289], [346, 634], [366, 434]],
     hangerTiles: [[0, 0], [50, 0], [100, 0], [450, 0], [500, 0], [550, 0],
     [0, 50], [0, 100], [0, 150], [0, 200], [0, 250], [0, 300], [0, 350],
     [550, 50], [550, 50], [550, 50], [550, 100], [550, 150], [550, 200], [550, 250], [550, 300], [550, 350], [50, 350], [100, 350], [150, 350], [200, 350], [250, 350], [300, 350], [350, 350], [400, 350], [450, 350], [500, 350]],
-    floor: [[50, 50]]
+    spaceman: [600, 400]
   }, level02: {
-    asteroids: [[630, 550], [674, 686]],
+    worldDimensions: [1920, 1920],
+    asteroids: [],
     hangerTiles: [[0, 0], [50, 0], [100, 0], [450, 0], [500, 0], [550, 0],
     [0, 50], [0, 100], [0, 150], [0, 200], [0, 250], [0, 300], [0, 350],
     [550, 50], [550, 50], [550, 50], [550, 100], [550, 150], [550, 200], [550, 250], [550, 300], [550, 350], [50, 350], [100, 350], [150, 350], [200, 350], [250, 350], [300, 350], [350, 350], [400, 350], [450, 350], [500, 350]],
-    floor: [[50, 50]]
+    spaceman: [600, 1000]
   }, level03: {
-    asteroids: [[630, 550]],
+    worldDimensions: [1920, 1920],
+    asteroids: [[1429, 454], [1423, 380], [1273, 412], [1275, 503], [1459, 525], [1235, 570], [1285, 639], [1492, 618], [1485, 686], [1254, 703], [1209, 774], [1536, 776], [1617, 693], [1571, 625], [1657, 612], [1581, 569], [1661, 545], [1687, 465], [1626, 499], [1541, 518], [1545, 440], [1610, 419], [1565, 363], [1496, 324], [1355, 279], [1542, 218], [1664, 320], [1739, 427], [1816, 387], [1752, 617], [1758, 725], [1237, 313], [1122, 416], [1204, 495], [966, 532], [1083, 604], [1169, 668], [1087, 765], [907, 702], [993, 783], [1528, 866], [1456, 962], [1374, 1043], [1278, 1096], [1122, 1135], [1002, 1077], [925, 1049], [1205, 1094], [1080, 1073], [1531, 948], [1445, 1037], [1289, 1016], [1277, 836], [1072, 851], [867, 1029], [724, 1135], [672, 1141], [568, 1199], [580, 1105], [499, 1050], [490, 1163], [414, 1090], [472, 983], [595, 857], [592, 980], [660, 1049], [867, 786], [790, 759], [736, 761], [684, 801], [630, 933], [463, 846], [570, 737], [765, 624], [979, 645], [664, 709], [535, 645], [456, 747], [547, 855], [389, 959], [293, 937], [381, 790], [375, 631], [485, 545], [666, 633], [814, 538], [1275, 1187], [1393, 1163], [1483, 1118], [1549, 1051], [1617, 1162], [1510, 1233], [1650, 1265], [1724, 1149], [1659, 1027], [1650, 948], [1777, 1035], [1763, 928], [1630, 867], [1734, 824], [1650, 770], [1766, 538]],
     hangerTiles: [[0, 0], [50, 0], [100, 0], [450, 0], [500, 0], [550, 0],
     [0, 50], [0, 100], [0, 150], [0, 200], [0, 250], [0, 300], [0, 350],
     [550, 50], [550, 50], [550, 50], [550, 100], [550, 150], [550, 200], [550, 250], [550, 300], [550, 350], [50, 350], [100, 350], [150, 350], [200, 350], [250, 350], [300, 350], [350, 350], [400, 350], [450, 350], [500, 350]],
-    floor: [[50, 50]]
+    spaceman: [1369, 354]
   }, level04: {
+    worldDimensions: [1920, 1920],
     asteroids: [[630, 550]],
     hangerTiles: [[0, 0], [50, 0], [100, 0], [450, 0], [500, 0], [550, 0],
     [0, 50], [0, 100], [0, 150], [0, 200], [0, 250], [0, 300], [0, 350],
     [550, 50], [550, 50], [550, 50], [550, 100], [550, 150], [550, 200], [550, 250], [550, 300], [550, 350], [50, 350], [100, 350], [150, 350], [200, 350], [250, 350], [300, 350], [350, 350], [400, 350], [450, 350], [500, 350]],
-    floor: [[50, 50]]
+    spaceman: [600, 400]
   }, level05: {
+    worldDimensions: [1920, 1920],
     asteroids: [[630, 550]],
     hangerTiles: [[0, 0], [50, 0], [100, 0], [450, 0], [500, 0], [550, 0],
     [0, 50], [0, 100], [0, 150], [0, 200], [0, 250], [0, 300], [0, 350],
     [550, 50], [550, 50], [550, 50], [550, 100], [550, 150], [550, 200], [550, 250], [550, 300], [550, 350], [50, 350], [100, 350], [150, 350], [200, 350], [250, 350], [300, 350], [350, 350], [400, 350], [450, 350], [500, 350]],
-    floor: [[50, 50]]
+    spaceman: [600, 400]
   }, level06: {
+    worldDimensions: [1920, 1920],
     asteroids: [[630, 550]],
     hangerTiles: [[0, 0], [50, 0], [100, 0], [450, 0], [500, 0], [550, 0],
     [0, 50], [0, 100], [0, 150], [0, 200], [0, 250], [0, 300], [0, 350],
     [550, 50], [550, 50], [550, 50], [550, 100], [550, 150], [550, 200], [550, 250], [550, 300], [550, 350], [50, 350], [100, 350], [150, 350], [200, 350], [250, 350], [300, 350], [350, 350], [400, 350], [450, 350], [500, 350]],
-    floor: [[50, 50]]
+    spaceman: [600, 400]
   }};
 
   game.add.tileSprite(0, 0, 1920, 1920, 'deepSpace');
@@ -185,7 +196,7 @@ const create = (() => {
 
   game.add.text(offsetX + 100, offsetY + 260, 'Rescue the spaceman', { font: '24px Allerta Stencil', fill: 'black' });
 
-  game.add.text(offsetX + 100, offsetY + 290, 'and bring him back to the ship', { font: '24px Allerta Stencil', fill: 'black' });
+  game.add.text(offsetX + 100, offsetY + 290, 'and bring him back to the hangar', { font: '24px Allerta Stencil', fill: 'black' });
 
   ship = game.add.sprite(shipProperties.startX, shipProperties.startY, 'ship');
   ship.anchor.set(0.5, 0.5);
@@ -193,7 +204,7 @@ const create = (() => {
   game.physics.arcade.enable(ship);
   ship.body.collideWorldBounds = true;
 
-  spaceman = game.add.sprite(600, 400, 'spaceman');
+  spaceman = game.add.sprite(gameObjects[levelId].spaceman[0], gameObjects[levelId].spaceman[1], 'spaceman');
   game.physics.arcade.enable(spaceman);
 
   startingGate = game.add.sprite(offsetX + 150, offsetY + 40, 'startingGate');
@@ -269,7 +280,7 @@ const update = (() => {
   }
 
   // add collision physics
-  if (game.physics.arcade.collide(ship, asteroidsGroup)) {
+  if (game.physics.arcade.collide(ship, asteroidsGroup) && editMode === false) {
     explosion = game.add.sprite(ship.body.x, ship.body.y, 'kaboom');
     explosion.animations.add('kaboom');
     explosion.anchor.setTo(0.5, 0.5);
@@ -369,6 +380,25 @@ const update = (() => {
   });
 
   intersectFunction([borderLineTop, borderLineBottom, borderLineLeft, borderLineRight]);
+
+  ///////// level edit
+  function builderAsteroid(){
+    if (Date.now() - lastTime > 200) {
+      lastTime = Date.now();
+      const coordinates = [game.camera.x + game.input.mousePointer.x, game.camera.y +  game.input.mousePointer.y];
+      console.log(coordinates);
+      newAsteroidArr.push(coordinates);
+      console.log(JSON.stringify(newAsteroidArr));
+
+      const newObject = asteroidsGroup.create(game.camera.x + game.input.mousePointer.x, game.camera.y +  game.input.mousePointer.y, 'asteroid')
+
+      newObject.body.immovable = true;
+    }
+  }
+  if (editMode === true) {
+    let logButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+    logButton.onDown.add(builderAsteroid, this)
+  }
 });
 
 const restart = (() => { game.state.start(game.state.current); });
