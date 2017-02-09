@@ -37,10 +37,11 @@ let borderLineLeft = {};
 let intersectPoint = {};
 
 // level editor
-let newAsteroidArr = [];
-let lastTime = 0;
 let editMode = false;
 // editMode = true; // !Uncomment to edit levels!
+
+let newAsteroidArr = [];
+let lastTime = 0;
 
 // game state
 const levelId = localStorage.getItem('currentLevel') || 'level01';
@@ -404,9 +405,11 @@ const update = (() => {
 const restart = (() => { game.state.start(game.state.current); });
 
 const render = (() => {
+  if (editMode) {
+    game.debug.spriteCoords(ship, 5, 50);
+  }
+  // game.debug.cameraInfo(game.camera, 5, 50);
   // game.debug.pointer(game.input.activePointer);
-  // game.debug.cameraInfo(game.camera);
-  // game.debug.spriteCoords(ship, 32, 500);
   // game.debug.geom(line);
   // game.debug.geom(borderLineTop);
   // game.debug.geom(borderLineBottom);
